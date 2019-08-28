@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+  <title>Prime Faces Dialog Example</title>
+</h:head>
+
+<h:body>
+  <h:form id="helloworld-form">
+
+    <p:panel header="Prime Faces Dialog Example">
+      <h:panelGrid columns="2" cellpadding="4">
+        <h:outputText value="Name: " />
+        <p:inputText id="first-name" value="#{helloWorld.name}" />
+
+        <h:outputText value="Type: " />
+        <p:inputText id="last-name" value="#{helloWorld.type}" />
+
+        <p:commandButton id="submit" value="Submit" oncomplete="PF('confirmDialog').show()" />
+      </h:panelGrid>
+    </p:panel>
+    
+    <p:confirmDialog widgetVar="confirmDialog" id="confirmDialogId" message="Are you sure?">
+    	<p:commandButton id="YesId" value="Yes" actionListener="#{helloWorld.updateShowDialog}" 
+    	update="otherId, typeId, submitForm"
+    	oncomplete="doStuff();" />
+    	<p:commandButton id="NoId" value="No" oncomplete="PF('confirmDialog').hide()" />
+    </p:confirmDialog>
+    
+    <h:inputHidden id="submitForm" value="#{helloWorld.submitForm}"/>
+
+    <p:dialog visible="#{helloWorld.showTypeDialog == true}" id="typeId" header="Type Dialog" widgetVar="typeDialog" resizable="false">
+      <h:panelGrid id="greeting-panel">
+        <h:outputText value="Type Changed" />
+      </h:panelGrid>
+    </p:dialog>
+    
+    <p:dialog visible="#{helloWorld.showOtherDialog == true}"  header="Other Dialog" widgetVar="otherDialog" id="otherId" resizable="false">
+      <h:panelGrid id="greeting-panel2">
+        <h:outputText value="Other value changed" />
+      </h:panelGrid>
+    </p:dialog>
+
+  </h:form>
+  <script type="text/javascript">
+  	function doStuff() {
+  		PF('confirmDialog').hide();
+  		if(document.querySelector('[id$="submitForm"]') != null) {
+	  		var val = document.querySelector('[id$="submitForm"]').value;
+	  		if(val == 'true')
+	  			console.log("Submit your form here");
+	  	}
+  	}
+
+  </script>
+</h:body>
+
+</html>
