@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+         <title>Examination Details</title>
+    </h:head>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    </head>
+    <h:body styleClass="d-flex flex-column">
+        <ui:composition template="/templates/body.xhtml">
+            <ui:define name="content">
+                    <h:panelGroup layout="block" styleClass="container-fluid">
+                        <h:panelGroup layout="block" styleClass="row mt-2">
+                            <h:panelGroup layout="block" styleClass="col-md-6">
+                                <address>
+                                    <span class="display-5"> #{inHouseInstitutionHandler.updatedInstitutionDetail.institutionName} </span> <br></br>
+                                    Caseload Manager: #{inHouseInstitutionHandler.caseLoadManager}
+                                </address>
+                            </h:panelGroup>
+
+                            <h:panelGroup layout="block" styleClass="col-md-6">
+                                <address>
+                                    #{inHouseInstitutionHandler.physicalAddress} <br></br>
+                                    #{inHouseInstitutionHandler.primaryPhone} <br></br>
+                                    #{inHouseInstitutionHandler.updatedInstitutionDetail.webAddress}
+                                </address>
+                            </h:panelGroup>
+                        </h:panelGroup>
+
+                        <!-- All Cards -->
+                        <h:panelGroup layout="block" styleClass="card mb-3 font-apply">
+                            <h:form>
+                                <p:accordionPanel  dynamic="true" cache="true">
+                                    <p:tab title="Examination Detail" id="examinationDetail">    
+                                        <h:panelGroup layout="block" styleClass="row">
+                                            <h:panelGroup layout="block" styleClass="col-md-4">
+                                                <!--Type-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="Type" class="col-md-4 col-form-label text-right">Type: </label>
+                                                    <h:selectOneMenu id="Type" styleClass="form-control col-md-4"
+                                                                     value="#{examinationsHandler.exams.type}"
+                                                                     required="true"
+                                                                     requiredMessage="Required">
+                                                        <f:selectItem  itemValue=" " itemLabel="-- Select Type --" />
+                                                    </h:selectOneMenu>
+                                                </h:panelGroup> <!--/Type-->
+
+                                                <!--Purpose-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="purpose" class="col-md-4 col-form-label text-right">Purpose: </label>
+                                                    <h:selectOneMenu  id="purpose" styleClass="form-control col-md-4" value="#"  >
+                                                        <f:selectItem itemValue=" " itemLabel="All"></f:selectItem>
+                                                        <f:selectItem itemValue = "Y" itemLabel="Yes"></f:selectItem>
+                                                        <f:selectItem itemValue = "N" itemLabel="No"></f:selectItem>
+                                                    </h:selectOneMenu> 
+                                                </h:panelGroup> <!--/Purpose-->
+                                                
+                                                                  <!--Scope-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="scope" class="col-md-4 col-form-label text-right">Scope: </label>
+                                                    <h:selectOneMenu  id="scope" styleClass="form-control col-md-4" value="#"  >
+                                                        <f:selectItem itemValue=" " itemLabel="All"></f:selectItem>
+                                                        <f:selectItem itemValue = "Y" itemLabel="Yes"></f:selectItem>
+                                                        <f:selectItem itemValue = "N" itemLabel="No"></f:selectItem>
+                                                    </h:selectOneMenu> 
+                                                </h:panelGroup> <!--/Scope-->
+                                                
+                                                                  <!--Offsite-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="offSite" class="col-md-4 col-form-label text-right">Off Site: </label>
+                                                    <h:selectOneMenu  id="offSite" styleClass="form-control col-md-4" value="#"  >
+                                                        <f:selectItem itemValue=" " itemLabel="All"></f:selectItem>
+                                                        <f:selectItem itemValue = "Y" itemLabel="Yes"></f:selectItem>
+                                                        <f:selectItem itemValue = "N" itemLabel="No"></f:selectItem>
+                                                    </h:selectOneMenu> 
+                                                </h:panelGroup> <!--/Offsite-->
+                                                
+                                                <!--Status-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="status" class="col-md-4 col-form-label text-right">Status: </label>
+                                                    <h:selectOneMenu  id="status" styleClass="form-control col-md-4" value="#"  >
+                                                        <f:selectItem itemValue=" " itemLabel="All"></f:selectItem>
+                                                        <f:selectItem itemValue = "Y" itemLabel="Yes"></f:selectItem>
+                                                        <f:selectItem itemValue = "N" itemLabel="No"></f:selectItem>
+                                                    </h:selectOneMenu> 
+                                                </h:panelGroup> <!--/Status-->   
+                                                
+                                                <!--Start Date-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="startDate" class="col-md-4 col-form-label text-right">Start Date: </label>
+                                                      <p:calendar id="startDate" value="#{examinationsHandler.exams.purpose}" inputStyleClass="form-control col-md-15" pattern="MM/dd/yyyy"  mode="popup"/>
+                                                </h:panelGroup> <!--/Start Date-->
+                                                
+                                                <!--Stop Date-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="stopDate" class="col-md-4 col-form-label text-right">Stop Date: </label>
+                                                      <p:calendar id="stopDate" value="#{examinationsHandler.exams.purpose}" inputStyleClass="form-control col-md-15" pattern="MM/dd/yyyy"  mode="popup"/>
+                                                </h:panelGroup> <!--/Stop Date-->
+                                                
+                                                <!--As Of Date-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="asofDate" class="col-md-4 col-form-label text-right">As Of Date: </label>
+                                                      <p:calendar id="asofDate" value="#{examinationsHandler.exams.purpose}" inputStyleClass="form-control col-md-15" pattern="MM/dd/yyyy"  mode="popup"/>
+                                                </h:panelGroup> <!--/As Of Date-->
+                                                
+                                                <!--Asset Quality Date-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="assetDate" class="col-md-4 col-form-label text-right">Asset Quality Date: </label>
+                                                      <p:calendar id="assetDate" value="#{examinationsHandler.exams.purpose}" inputStyleClass="form-control col-md-15" pattern="MM/dd/yyyy"  mode="popup"/>
+                                                </h:panelGroup> <!--/Asset Quality Date-->
+                                                
+                                                <!--Cancel Date-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="cancelDate" class="col-md-4 col-form-label text-right">Cancel Date: </label>
+                                                      <p:calendar id="cancelDate" value="#{examinationsHandler.exams.purpose}" inputStyleClass="form-control col-md-15" pattern="MM/dd/yyyy"  mode="popup"/>
+                                                </h:panelGroup> <!--/Cancel Date-->
+                                                        <!--Reason-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                        <label for="reason" class="col-md-4 col-form-label text-right">Reason: </label>
+                                                        <p:inputText id="reason"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-6"></p:inputText>
+                                                </h:panelGroup>  <!--/Reason-->
+                                            </h:panelGroup>
+                                            <h:panelGroup layout="block" styleClass="col-md-4">
+                                               <!--Composite-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                        <label for="Composite" class="col-md-4 col-form-label text-right">Composite: </label>
+                                                        <p:inputText id="Composite"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-6"></p:inputText>
+                                                </h:panelGroup>  <!--/Composite-->
+                                                <!--Component-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                        <label for="component" class="col-md-4 col-form-label text-right">Component: </label>
+                                                        <p:inputText id="component"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-6"></p:inputText>
+                                                </h:panelGroup>  <!--/Component-->
+                                                <!--Total Assets-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                        <label for="totalAssets" class="col-md-4 col-form-label text-right">Total Assets: </label>
+                                                        <p:inputText id="totalAssets"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-6"></p:inputText>
+                                                </h:panelGroup>  <!--/Total Assets-->
+                                                        <!--Total Capital-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                        <label for="totalCapital" class="col-md-4 col-form-label text-right">Total Capital: </label>
+                                                        <p:inputText id="totalCapital"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-6"></p:inputText>
+                                                </h:panelGroup>  <!--/Total Capital-->
+                                                         <!--Net Income-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                        <label for="netIncome" class="col-md-4 col-form-label text-right">Net Income: </label>
+                                                        <p:inputText id="netIncome"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-6"></p:inputText>
+                                                </h:panelGroup>  <!--/Net Income-->
+                                                        <!--Total Trust Assets-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                        <label for="assets" class="col-md-4 col-form-label text-right">Total Trust Assets: </label>
+                                                        <p:inputText id="assets"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-6"></p:inputText>
+                                                </h:panelGroup>  <!--/Total Trust Assets-->
+                                                         <!--Total Class Trust Assets-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                        <label for="trustAssets" class="col-md-4 col-form-label text-right">Total Class Trust Assets: </label>
+                                                        <p:inputText id="trustAssets"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-6"></p:inputText>
+                                                </h:panelGroup>  <!--/Total Class Trust Assets-->
+                                                        <!--Violations-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                        <label for="violation" class="col-md-4 col-form-label text-right">Violations: </label>
+                                                        <p:inputText id="violation"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-6"></p:inputText>
+                                                </h:panelGroup>  <!--/Violations-->
+                                                         <!--Enforcements-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                        <label for="enforcements" class="col-md-4 col-form-label text-right">Enforcements: </label>
+                                                        <p:inputText id="enforcements"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-6"></p:inputText>
+                                                </h:panelGroup>  <!--/Enforcements-->
+                                            </h:panelGroup> 
+                                            
+                                            <h:panelGroup layout="block" styleClass="col-md-4">
+                                               <!--Agency-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                        <label for="agency" class="col-md-4 col-form-label text-right">Agency: </label>
+                                                        <p:inputText id="agency"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-6"></p:inputText>
+                                                </h:panelGroup>  <!--/Agency-->
+                                                <!--Lead-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                        <label for="lead" class="col-md-4 col-form-label text-right">Lead: </label>
+                                                        <p:inputText id="lead"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-6"></p:inputText>
+                                                </h:panelGroup>  <!--/Lead-->
+                                                <!--Total Costs-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                        <label for="totalCosts" class="col-md-4 col-form-label text-right">Total Costs: </label>
+                                                        <p:inputText id="totalCosts"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-6"></p:inputText>
+                                                </h:panelGroup>  <!--/Total Assets-->
+                                                <!--Total Hrs-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                        <label for="totalHrs" class="col-md-4 col-form-label text-right">Total Hrs: </label>
+                                                        <p:inputText id="totalHrs"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-6"></p:inputText>
+                                                </h:panelGroup>  <!--/Total Hrs-->
+                                                <!--Base Date-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="baseDate" class="col-md-4 col-form-label text-right">Base Date: </label>
+                                                      <p:calendar id="baseDate" value="#{examinationsHandler.exams.purpose}" inputStyleClass="form-control col-md-15" pattern="MM/dd/yyyy"  mode="popup"/>
+                                                </h:panelGroup> <!--/Base Date-->
+                                                <!--Report Due Date-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="reportDueDate" class="col-md-4 col-form-label text-right">Report Due Date: </label>
+                                                      <p:calendar id="reportDueDate" value="#{examinationsHandler.exams.purpose}" inputStyleClass="form-control col-md-15" pattern="MM/dd/yyyy"  mode="popup"/>
+                                                </h:panelGroup> <!--/Report Due Date-->
+                                                <!--Mail Date-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="mailDate" class="col-md-4 col-form-label text-right">Mail Date: </label>
+                                                      <p:calendar id="mailDate" value="#{examinationsHandler.exams.purpose}" inputStyleClass="form-control col-md-15" pattern="MM/dd/yyyy"  mode="popup"/>
+                                                </h:panelGroup> <!--/Mail Date-->
+                                                <!--Completed Date-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="completedDate" class="col-md-4 col-form-label text-right">Completed Date: </label>
+                                                      <p:calendar id="completedDate" value="#{examinationsHandler.exams.purpose}" inputStyleClass="form-control col-md-15" pattern="MM/dd/yyyy"  mode="popup"/>
+                                                </h:panelGroup> <!--/Completed Date-->
+                                            </h:panelGroup>                            
+                                        </h:panelGroup>
+                                       
+                                        
+                                        <h:panelGroup layout="block" styleClass="row">
+                                               <h:panelGroup layout="block" styleClass="col-md-4">
+                                                <!--Loans and Leases-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="loansandLeases" class="col-md-4 col-form-label text-right">Loans and Leases: </label>
+                                                     <p:inputText id="loans1"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-2"></p:inputText>
+                                                     <p:inputText id="loans2"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-2"></p:inputText>
+                                                     <p:inputText id="loans3"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-2"></p:inputText>
+                                                     <p:inputText id="loans4"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-2"></p:inputText>
+                                                </h:panelGroup> <!--/Loans and Leases-->
+                                              <!--Securities-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="securities" class="col-md-4 col-form-label text-right">Securities: </label>
+                                                     <p:inputText id="securities1"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-2"></p:inputText>
+                                                     <p:inputText id="securities2"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-2"></p:inputText>
+                                                     <p:inputText id="securities3"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-2"></p:inputText>
+                                                     <p:inputText id="securities4"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-2"></p:inputText>
+                                                </h:panelGroup> <!--/Securities-->
+                                                <!--OREO-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="oreo" class="col-md-4 col-form-label text-right">OREO: </label>
+                                                     <p:inputText id="oreo1"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-2"></p:inputText>
+                                                     <p:inputText id="oreo2"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-2"></p:inputText>
+                                                     <p:inputText id="oreo3"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-2"></p:inputText>
+                                                     <p:inputText id="oreo4"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-2"></p:inputText>
+                                                </h:panelGroup> <!--/OREO-->
+                                                <!--Other Assets-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="otherAssets" class="col-md-4 col-form-label text-right">Other Assets: </label>
+                                                     <p:inputText id="otherAssets1"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-2"></p:inputText>
+                                                     <p:inputText id="otherAssets2"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-2"></p:inputText>
+                                                     <p:inputText id="otherAssets3"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-2"></p:inputText>
+                                                     <p:inputText id="otherAssets4"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-2"></p:inputText>
+                                                </h:panelGroup> <!--/Other Assets-->
+                                                <!--Contingent Liabilities-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="contingentLiabilities" class="col-md-4 col-form-label text-right">Contingent Liabilities: </label>
+                                                     <p:inputText id="contingent1"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-2"></p:inputText>
+                                                     <p:inputText id="contingent2"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-2"></p:inputText>
+                                                     <p:inputText id="contingent3"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-2"></p:inputText>
+                                                     <p:inputText id="contingent4"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-2"></p:inputText>
+                                                </h:panelGroup> <!--/Contingent Liabilities-->
+                                                
+                                                   <!--Total-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="total" class="col-md-4 col-form-label text-right">Total: </label>
+                                                     <p:inputText id="total1"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-2"></p:inputText>
+                                                     <p:inputText id="total2"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-2"></p:inputText>
+                                                     <p:inputText id="total3"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-2"></p:inputText>
+                                                     <p:inputText id="total4"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-2"></p:inputText>
+                                                </h:panelGroup> <!--/Total-->
+                                                <!--classification-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="classification" class="col-md-4 col-form-label text-right">% of Classification to Total Assets: </label>
+                                                     <p:inputText id="classification"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-6"></p:inputText>
+                                                </h:panelGroup> <!--/classification-->
+                                                        <!--tier1-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="tier1" class="col-md-4 col-form-label text-right">% of Classification to Tier 1 + ALL: </label>
+                                                     <p:inputText id="tier1"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-6"></p:inputText>
+                                                </h:panelGroup> <!--/tier1-->
+                                                        <!--Total Loans-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="totalLoans" class="col-md-4 col-form-label text-right">% of ALL to Total Loans: </label>
+                                                     <p:inputText id="totalLoans"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-6"></p:inputText>
+                                                </h:panelGroup> <!--/Total Loans-->
+                                                
+                                               </h:panelGroup>
+                                        </h:panelGroup>
+                                        
+                                        <h:panelGroup layout="block" styleClass="row">
+                                            <h:panelGroup layout="block" styleClass="col-md-4">
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="assetReview" class="col-md-4 col-form-label text-right">Asset Review Percent: </label>
+                                                    <p:inputText id="assetReview"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-4"></p:inputText>  
+                                                </h:panelGroup>
+                                            </h:panelGroup>
+                                            <h:panelGroup layout="block" styleClass="col-md-4">
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="specialMention" class="col-md-4 col-form-label text-right">Special Mention Assets: </label>
+                                                    <p:inputText id="specialMention"  value="#{examinationsHandler.exams.purpose}" styleClass="form-control col-md-4"></p:inputText>  
+                                                </h:panelGroup>
+                                            </h:panelGroup>
+                                        </h:panelGroup>
+                                        
+                                       <h:panelGroup layout="block" styleClass="text-center">
+                                            <p:commandButton ajax="false" id="saveExam" value="Save" class="btn btn-primary margin" action="#" />   
+                                        </h:panelGroup>
+                                    </p:tab>
+                                    <p:tab title="Staff" id="staff">       
+                                        <p:dataTable id="staffTable" class="table table-bordered table-hover"
+                                                     var="record"
+                                                     value="#{inHouseInstitutionHandler.dba}"
+                                                     rows="10"
+                                                     paginator="true"
+                                                     currentPageReportTemplate="Record {startRecord}-{endRecord} of {totalRecords}"
+                                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                                                     {PreviousPageLink} {NextPageLink}
+                                                     {LastPageLink}" sortMode="multiple">
+
+                                            <p:column headerText="First Name"
+                                                      sortBy="#{record.name}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.name}" />
+                                            </p:column>
+                                            <p:column headerText="Last Name"
+                                                      sortBy="#{record.name}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.name}" />
+                                            </p:column>
+                                            <p:column headerText="Role"
+                                                      sortBy="#{record.name}"
+                                                      width="10%">
+                                                <h:outputText value="#{record.name}" />
+                                            </p:column>
+                                             <p:column 
+                                                      width="2%">
+                                               <i class="fas fa-trash-alt"></i>
+                                            </p:column>
+                                        </p:dataTable>  
+                                        <h:panelGroup layout="block" styleClass="text-center">
+                                            <p:commandButton ajax="false" id="addButton1" value="Add New" class="btn btn-primary margin" action="#" />   
+                                        </h:panelGroup>
+                                    </p:tab>                  
+                                   <p:tab title="Violations" id="violations">       
+                                       <p:dataTable id="violationsTable" class="table table-bordered table-hover"
+                                                     var="record"
+                                                     value="#{inHouseInstitutionHandler.dba}"
+                                                     rows="10"
+                                                     paginator="true"
+                                                     currentPageReportTemplate="Record {startRecord}-{endRecord} of {totalRecords}"
+                                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                                                     {PreviousPageLink} {NextPageLink}
+                                                     {LastPageLink}" sortMode="multiple">
+
+                                            <p:column headerText="Statute/Rule"
+                                                      sortBy="#{record.name}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.name}" />
+                                            </p:column>
+                                            <p:column headerText="No.of Violations"
+                                                      sortBy="#{record.name}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.name}" />
+                                            </p:column>
+                                            <p:column headerText="Description"
+                                                      sortBy="#{record.name}"
+                                                      width="10%">
+                                                <h:outputText value="#{record.name}" />
+                                            </p:column>
+                                             <p:column 
+                                                      width="2%">
+                                               <i class="fas fa-trash-alt"></i>
+                                            </p:column>
+                                        </p:dataTable>    
+                                        <h:panelGroup layout="block" styleClass="text-center">
+                                            <p:commandButton ajax="false" id="addButton2" value="Add New" class="btn btn-primary margin" action="#" />   
+                                        </h:panelGroup>
+                                   </p:tab>  
+                                    
+                                    <p:tab title="Processing" id="processing">       
+                                       <p:dataTable id="processingTable" class="table table-bordered table-hover"
+                                                     var="record"
+                                                     value="#{inHouseInstitutionHandler.dba}"
+                                                     rows="10"
+                                                     paginator="true"
+                                                     currentPageReportTemplate="Record {startRecord}-{endRecord} of {totalRecords}"
+                                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                                                     {PreviousPageLink} {NextPageLink}
+                                                     {LastPageLink}" sortMode="multiple">
+
+                                            <p:column headerText="Processing Description"
+                                                      sortBy="#{record.name}"
+                                                      width="10%">
+                                                <h:outputText value="#{record.name}" />
+                                            </p:column>
+                                            <p:column headerText="Date"
+                                                      sortBy="#{record.name}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.name}" />
+                                            </p:column>
+                                            <p:column headerText="Days"
+                                                      sortBy="#{record.name}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.name}" />
+                                            </p:column>
+                                              <p:column headerText="Employee"
+                                                      sortBy="#{record.name}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.name}" />
+                                            </p:column>
+                                             <p:column 
+                                                      width="2%">
+                                               <i class="fas fa-trash-alt"></i>
+                                            </p:column>
+                                        </p:dataTable>  
+                                        <h:panelGroup layout="block" styleClass="text-center">
+                                            <p:commandButton ajax="false" id="addButton3" value="Add New" class="btn btn-primary margin" action="#" />   
+                                        </h:panelGroup>
+                                    </p:tab>  
+                                                   
+                                   <p:tab title="Notes" id="notes">       
+                                        <p:dataTable id="notesTable" class="table table-bordered table-hover"
+                                                     var="record"
+                                                     value="#{inHouseInstitutionHandler.dba}"
+                                                     rows="10"
+                                                     paginator="true"
+                                                     currentPageReportTemplate="Record {startRecord}-{endRecord} of {totalRecords}"
+                                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                                                     {PreviousPageLink} {NextPageLink}
+                                                     {LastPageLink}" sortMode="multiple">
+
+                                            <p:column headerText="System Date"
+                                                      sortBy="#{record.name}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.name}" />
+                                            </p:column>
+                                            <p:column headerText="Changed By"
+                                                      sortBy="#{record.name}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.name}" />
+                                            </p:column>
+                                            <p:column headerText="Type"
+                                                      sortBy="#{record.name}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.name}" />
+                                            </p:column>
+                                              <p:column headerText="Note"
+                                                      sortBy="#{record.name}"
+                                                      width="10%">
+                                                <h:outputText value="#{record.name}" />
+                                            </p:column>
+                                             <p:column 
+                                                      width="2%">
+                                               <i class="fas fa-trash-alt"></i>
+                                            </p:column>
+                                        </p:dataTable>  
+                                        <h:panelGroup layout="block" styleClass="text-center">
+                                            <p:commandButton ajax="false" id="addButton4" value="Add New" class="btn btn-primary margin" action="#" />   
+                                        </h:panelGroup>
+                                   </p:tab>  
+                                </p:accordionPanel>
+                          </h:form>  
+                        </h:panelGroup>
+                    </h:panelGroup>
+                    <h:form id="backForm">
+                        <h:panelGroup layout="block" styleClass="text-center">
+                            <p:commandButton ajax="false" id="backButton" value="Back" class="btn btn-primary margin" action="#{examinationsHandler.processBackCriteria}" />   
+                        </h:panelGroup>
+                  </h:form>
+                <!--/Body content-->
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

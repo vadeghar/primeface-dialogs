@@ -1,0 +1,1518 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+        <title>Institution Details</title>
+
+
+    </head>
+    <h:body styleClass="d-flex flex-column">
+        <ui:composition template="/templates/layout.xhtml">
+            <ui:define name="content">
+                <section class="main-panel flex-grow">
+                    <h:panelGroup layout="block" styleClass="container-fluid">
+                        <h:panelGroup layout="block" styleClass="row mt-2">
+                            <h:panelGroup layout="block" styleClass="col-md-6">
+                                <address>
+                                    <span class="display-5"> #{inHouseInstitutionHandler.updatedInstitutionDetail.institutionName} </span> <br></br>
+                                    Caseload Manager: #{inHouseInstitutionHandler.caseLoadManager}
+                                </address>
+                            </h:panelGroup>
+
+                            <h:panelGroup layout="block" styleClass="col-md-6">
+                                <address>
+                                    #{inHouseInstitutionHandler.physicalAddress} <br></br>
+                                    #{inHouseInstitutionHandler.primaryPhone} <br></br>
+                                    #{inHouseInstitutionHandler.updatedInstitutionDetail.webAddress}
+                                </address>
+                            </h:panelGroup>
+                        </h:panelGroup>
+
+                        <!-- All Cards -->
+                        <h:panelGroup layout="block" styleClass="card mb-3">
+                            <h:form>
+                                <p:accordionPanel  dynamic="true" cache="true">
+                                    <p:ajax event="tabChange" listener="#{inHouseInstitutionHandler.onTabChange}"
+                                            update="bodTable institutionStaffTable display"/>
+                                    <p:tab title="Institution Detail" id="institutionDetail"> 
+                                      <!-- <p:messages id="messages1"  showDetail="false" autoUpdate="true" closable="true"/> -->
+                                        <h:panelGroup layout="block" styleClass="form-row mb-3">
+                                            <h:panelGroup layout="block" styleClass="col-md-7">
+                                                <h:panelGroup layout="block" styleClass="form-group font-apply mb-2 my-1">
+                                                    <p:outputLabel for="InstitutionName" class="col-form-label float-left mr-sm-2 ">Institution Name: </p:outputLabel>
+                                                    <p:inputText id="InstitutionName" value="#{inHouseInstitutionHandler.updatedInstitutionDetail.institutionName}" styleClass="form-control col-7 float-left"></p:inputText>
+                                                </h:panelGroup>
+                                            </h:panelGroup>
+                                            <h:panelGroup layout="block" styleClass="col-md-5">
+                                                <h:panelGroup layout="block" styleClass="form-group font-apply mb-2 my-1">
+                                                    <label for="Website" class="col-form-label float-left mr-sm-2">Website: </label>
+                                                    <p:inputText id="Website" value="#{inHouseInstitutionHandler.updatedInstitutionDetail.webAddress}" styleClass="form-control col-8 float-left"></p:inputText>
+                                                </h:panelGroup>
+                                            </h:panelGroup>
+                                        </h:panelGroup>
+                                        <h:panelGroup layout="block" styleClass="row">
+                                            <h:panelGroup layout="block" styleClass="col-md-4">
+                                                <!--Charter-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="Charter" class="col-md-6 col-form-label text-right">Charter: </label>
+                                                    <p:inputText id="Charter" value="#{inHouseInstitutionHandler.updatedInstitutionDetail.charterLicenseNumber}"   styleClass="form-control col-md-6" readonly="true"></p:inputText>
+                                                </h:panelGroup> <!--/Charter-->
+
+                                                <!--Type-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="Type" class="col-md-6 col-form-label text-right ">Type: </label>
+                                                    <h:selectOneMenu id="Type" styleClass="form-control col-md-6"
+                                                                     value="#{inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode}"
+                                                                     >
+                                                        <f:selectItem  itemValue=" " itemLabel="-- Select Type --" />
+                                                        <f:selectItems  value="#{systemUtilityHandler.institutionTypeCodeItems}" />
+                                                    </h:selectOneMenu>
+                                                </h:panelGroup> <!--/Type-->
+
+
+
+                                                <!--DOB Regulated-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="DOBRegulated" class="col-md-6 col-form-label text-right ">DOB Regulated: </label>
+                                                    <h:selectOneMenu  id="DOBRegulated" styleClass="form-control col-md-6" value="#{inHouseInstitutionHandler.updatedInstitutionDetail.dobRegulatedInstitution}"  >
+                                                        <f:selectItem itemValue=" " itemLabel="All"></f:selectItem>
+                                                        <f:selectItem itemValue = "Y" itemLabel="Yes"></f:selectItem>
+                                                        <f:selectItem itemValue = "N" itemLabel="No"></f:selectItem>
+                                                    </h:selectOneMenu> 
+                                                </h:panelGroup> <!--/DOB Regulated-->
+
+                                                <!--EIN Number-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="EINNumber" class="col-md-6 col-form-label text-right">EIN Number: </label>
+                                                    <p:inputText id="EINNumber" value="#{inHouseInstitutionHandler.updatedInstitutionDetail.ein}" styleClass="form-control col-md-6"></p:inputText>
+                                                </h:panelGroup> <!--/EIN Number-->
+
+                                                <!--Corporation-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="Corporation" class="col-md-6 col-form-label text-right">Corporation: </label>
+                                                    <h:selectOneMenu  id="Corporation" styleClass="form-control col-md-6"
+                                                                      value="#{inHouseInstitutionHandler.updatedInstitutionDetail.corporationTypeCode}"
+                                                                      >
+                                                        <f:selectItem itemValue=" " itemLabel="-- Select Corporation Type --" />
+                                                        <f:selectItems  value="#{systemUtilityHandler.corporationTypeCodeItems}" />
+                                                    </h:selectOneMenu>
+                                                </h:panelGroup>  <!--/Corporation-->
+
+                                                <!--Enforcement Action-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="EnforcementAction" class="col-md-6 col-form-label text-right">Enforcement Action: </label>
+                                                    <p:inputText id="EnforcementAction" value="#{inHouseInstitutionHandler.updatedInstitutionDetail.enforcementAction}" styleClass="form-control col-md-6" readonly="true"></p:inputText>
+                                                </h:panelGroup> <!--/Enforcement Action-->
+
+                                                <!--High Risk-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="HighRisk" class="col-md-6 col-form-label text-right">High Risk: </label>
+                                                    <h:selectOneMenu id="HighRisk" styleClass="form-control col-md-6"
+                                                                     value="#{inHouseInstitutionHandler.updatedInstitutionDetail.highRiskTypeCode}"
+                                                                     >
+                                                        <f:selectItem itemValue=" " itemLabel="-- Select High Risk --" />
+                                                        <f:selectItems  value="#{systemUtilityHandler.highRiskTypeItems}" />
+                                                    </h:selectOneMenu>
+                                                </h:panelGroup>  <!--/High Risk-->
+
+                                                <!--BSA Risk-->
+                                                <c:if test="${inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode != null and
+                                                   inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode != 'IT'}"> 
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="BSARisk" class="col-md-6 col-form-label text-right">BSA Risk: </label>
+                                                    <h:selectOneMenu id="BSARisk" styleClass="form-control col-md-6"  value="#{inHouseInstitutionHandler.updatedInstitutionDetail.bsaRisk}" >
+                                                        <f:selectItem itemValue=" " itemLabel="--Select BSA Risk--"></f:selectItem>
+                                                        <f:selectItem itemValue = "HIGH" itemLabel="High"></f:selectItem>
+                                                        <f:selectItem itemValue = "MODERATE" itemLabel="Moderate"></f:selectItem>
+                                                        <f:selectItem itemValue = "LOW" itemLabel="Low"></f:selectItem>    
+                                                    </h:selectOneMenu>
+                                                </h:panelGroup> 
+                                                </c:if>
+                                                    <!--/BSA Risk-->
+                                                
+                                                <!--Charter State-->
+                                                  <c:if test="${inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode != null and
+                                                   inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode == 'ISB' or inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode == 'ITC'}"> 
+      
+                                                 <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="charterState" class="col-md-6 col-form-label text-right ">Charter State: </label>
+                                                    <h:selectOneMenu id="charterState" styleClass="form-control col-md-6"
+                                                                     value="#{inHouseInstitutionHandler.updatedInstitutionDetail.charterStateCode}"
+                                                                     >
+                                                        <f:selectItem itemValue=" " itemLabel="-- Select Charter State--" />
+                                                        <f:selectItems  value="#{systemUtilityHandler.charterStateItems}" />
+                                                    </h:selectOneMenu>
+                                                   </h:panelGroup>
+                                                </c:if>
+                                                <!--/Charter State-->
+                                            </h:panelGroup>
+
+                                            <h:panelGroup layout="block" styleClass="col-md-4">
+                                                <!-- Commercial Banks, Trust Company Deposit, Industrial Bank -->
+                                              <c:if test="${inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode != null and
+                                                               inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode == 'CB' or inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode == 'TCD' or inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode == 'IB'}">    <!--FDIC Number-->
+                                                    <h:panelGroup layout="block" styleClass="form-group row">
+                                                        <label for="FDICNumber" class="col-md-6 col-form-label text-right">FDIC Number: </label>
+                                                        <p:inputText id="FDICNumber"  value="#{inHouseInstitutionHandler.updatedInstitutionDetail.fdicNumber}" styleClass="form-control col-md-6"></p:inputText>
+                                                    </h:panelGroup>  <!--/FDIC Number-->
+
+                                                    <!--FRB/RSSD Number-->
+                                                    <h:panelGroup layout="block" styleClass="form-group row">
+                                                        <label for="FRBRSSDNumber" class="col-md-6 col-form-label text-right">FRB/RSSD Number: </label>
+                                                        <p:inputText id="FRBRSSDNumber" value="#{inHouseInstitutionHandler.updatedInstitutionDetail.rssdNumber}" styleClass="form-control col-md-6"></p:inputText>
+                                                    </h:panelGroup> <!--/FRB/RSSD Number-->
+
+                                                    <!--FRB Member-->
+                                                    <h:panelGroup layout="block" styleClass="form-group row">
+                                                        <label for="FRBMember" class="col-md-6 col-form-label text-right">FRB Member: </label>
+                                                    <h:selectOneMenu  id="FRBMember" styleClass="form-control col-md-6" value="#{inHouseInstitutionHandler.updatedInstitutionDetail.frbMember}"  >
+                                                        <f:selectItem itemValue=" " itemLabel="--Select FRB Member--"></f:selectItem>
+                                                        <f:selectItem itemValue = "Y" itemLabel="Yes"></f:selectItem>
+                                                        <f:selectItem itemValue = "N" itemLabel="No"></f:selectItem>
+                                                    </h:selectOneMenu> 
+                                                    </h:panelGroup> <!--/FRB Member-->
+
+                                                    <!--FDIC Insurance Date-->
+                                                    <h:panelGroup layout="block" styleClass="form-group row">
+                                                        <label for="FDICInsuranceDate" class="col-md-6 col-form-label text-right">FDIC Insurance Date: </label>
+                                                        <p:calendar id="FDICInsuranceDate" value="#{inHouseInstitutionHandler.updatedInstitutionDetail.fdicInsuranceDateText}" inputStyleClass="form-control col-md-15" pattern="MM/dd/yyyy"  mode="popup"/>
+                                                    </h:panelGroup> <!--/FDIC Insurance Date-->
+                                                </c:if>
+
+                                                <!-- Money Transmitter-->
+                                                  <c:if test="${inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode != null and
+                                                               inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode == 'MT'}"> 
+                                                    <!--Surety Bond-->
+                                                    <h:panelGroup layout="block" styleClass="form-group row">
+                                                        <label for="suretyBond" class="col-md-6 col-form-label text-right">Surety Bond/Securities: </label>
+                                                        <p:inputText id="suretyBond"  value="#{inHouseInstitutionHandler.updatedInstitutionDetail.amtSuretyBondOrSecurityText}" styleClass="form-control col-md-6"></p:inputText>
+                                                    </h:panelGroup>  <!--/Surety Bond-->
+
+                                                    <!--Expiration Date-->
+                                                    <h:panelGroup layout="block" styleClass="form-group row">
+                                                        <label for="ExpirationDate" class="col-md-6 col-form-label text-right">Expiration Date: </label>
+                                                         <p:calendar id="ExpirationDate" value="#{inHouseInstitutionHandler.updatedInstitutionDetail.expirationDateText}" inputStyleClass="form-control col-md-15" pattern="MM/dd/yyyy" mode="popup" />
+                                                    </h:panelGroup> <!--/Expiration Date-->
+
+                                                    <!--Issuer of Bond-->
+                                                    <h:panelGroup layout="block" styleClass="form-group row">
+                                                        <label for="IssuerofBond" class="col-md-6 col-form-label text-right">Issuer of Bond: </label>
+                                                        <p:inputText id="IssuerofBond" value="#{inHouseInstitutionHandler.updatedInstitutionDetail.bondIssuer}" styleClass="form-control col-md-6"></p:inputText>
+                                                    </h:panelGroup> <!--/Issuer of Bond-->
+
+                                                    <!--No.of Offices-->
+                                                    <h:panelGroup layout="block" styleClass="form-group row">
+                                                        <label for="offices" class="col-md-6 col-form-label text-right">Number of Offices: </label>
+                                                        <p:inputText id="offices" value="#{inHouseInstitutionHandler.updatedInstitutionDetail.nbrOfficesCO}" styleClass="form-control col-md-6">
+                                                        </p:inputText>
+                                                    </h:panelGroup> <!--/No.of Offices-->
+
+                                                    <!--No.of Agents-->
+                                                    <h:panelGroup layout="block" styleClass="form-group row">
+                                                        <label for="noOfAgents" class="col-md-6 col-form-label text-right">Number of Agents: </label>
+                                                        <p:inputText id="noOfAgents" value="#{inHouseInstitutionHandler.updatedInstitutionDetail.nbrAgentsCO}" styleClass="form-control col-md-6">
+                                                        </p:inputText>
+                                                    </h:panelGroup> <!--/No.of Agents-->
+
+
+                                                    <!--MSB Registration-->
+                                                    <h:panelGroup layout="block" styleClass="form-group row">
+                                                        <label for="msbRegistration" class="col-md-6 col-form-label text-right">MSB Registration/Renewal Date: </label>
+                                                        <p:calendar id="msbRegistration" value="#{inHouseInstitutionHandler.updatedInstitutionDetail.msbRegistrationDateText}" inputStyleClass="form-control col-md-15" pattern="MM/dd/yyyy" mode="popup" />
+                                                    </h:panelGroup> <!--/MSB Registration-->
+                                                </c:if>
+
+                                                <!--National Bank-->
+                                                  <c:if test="${inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode != null and
+                                                               inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode == 'NB'}">  
+                                                  
+                                                    <!--Over 10% deposit-->
+                                                    <h:panelGroup layout="block" styleClass="form-group row">
+                                                        <label for="deposit" class="col-md-6 text-right">Over 10% Deposit: </label>
+                                                        <h:selectBooleanCheckbox id="deposit" value="#{inHouseInstitutionHandler.updatedInstitutionDetail.over10pctDeposit}"/>
+                                                    </h:panelGroup>  <!--/Over 10% deposit-->
+                                                  </c:if>
+                                                <c:if test="${inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode != null and
+                                                               inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode == 'NB' or inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode == 'ISB'}"> 
+                                                    <!--FDIC Number-->
+                                                     <h:panelGroup layout="block" styleClass="form-group row">
+                                                        <label for="FDICNumber" class="col-md-6 col-form-label text-right">FDIC Number: </label>
+                                                        <p:inputText id="FDICNumber"  value="#{inHouseInstitutionHandler.updatedInstitutionDetail.fdicNumber}" styleClass="form-control col-md-6"></p:inputText>
+                                                    </h:panelGroup>  <!--/FDIC Number-->
+
+                                                    <!--FRB/RSSD Number-->
+                                                    <h:panelGroup layout="block" styleClass="form-group row">
+                                                        <label for="FRBRSSDNumber" class="col-md-6 col-form-label text-right">FRB/RSSD Number: </label>
+                                                        <p:inputText id="FRBRSSDNumber" value="#{inHouseInstitutionHandler.updatedInstitutionDetail.rssdNumber}" styleClass="form-control col-md-6"></p:inputText>
+                                                    </h:panelGroup> <!--/FRB/RSSD Number-->
+                                                </c:if>
+                                                 <c:if test="${inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode != null and
+                                                               inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode == 'ISB'}">                                                  
+                                                             <!--FDIC Insurance Date-->
+                                                    <h:panelGroup layout="block" styleClass="form-group row">
+                                                        <label for="FDICInsuranceDate" class="col-md-6 col-form-label text-right">FDIC Insurance Date: </label>
+                                                        <p:calendar id="FDICInsuranceDate" value="#{inHouseInstitutionHandler.updatedInstitutionDetail.fdicInsuranceDateText}" inputStyleClass="form-control col-md-15" pattern="MM/dd/yyyy"  mode="popup"/>
+                                                    </h:panelGroup> <!--/FDIC Insurance Date-->
+                                                 </c:if>
+                                                <!--Trust Company Non-Deposit-->
+                                                <c:if test="${inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode != null and
+                                                               inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode == 'TCND'}">
+                                                    <!--Deposit Amount-->
+                                                    <h:panelGroup layout="block" styleClass="form-group row">
+                                                        <label for="depositAmt" class="col-md-6 col-form-label text-right">Deposit Amount: </label>
+                                                        <p:inputText id="depositAmt"  value="#{inHouseInstitutionHandler.updatedInstitutionDetail.tcndDepositAmountText}" styleClass="form-control col-md-6"></p:inputText>
+                                                    </h:panelGroup>  <!--/Deposit Amount-->
+
+                                                    <!--Maturity Date-->
+                                                    <h:panelGroup layout="block" styleClass="form-group row">
+                                                        <label  for="maturityDate" class="col-md-6 col-form-label text-right">Maturity Date: </label>
+                                                        <p:calendar id="maturityDate" value="#{inHouseInstitutionHandler.updatedInstitutionDetail.tcndMaturityDateText}" inputStyleClass="form-control col-md-15" pattern="MM/dd/yyyy" mode="popup"/>
+                                                    </h:panelGroup> <!--/Maturity Date-->
+
+                                                    <!--Custodian Type-->
+                                                    <h:panelGroup layout="block" styleClass="form-group row">
+                                                        <label for="custodianType" class="col-md-6 col-form-label text-right">Custodian Type: </label>
+                                                         <h:selectOneMenu id="custodianType" styleClass="form-control col-md-6"
+                                                                     value="#{inHouseInstitutionHandler.updatedInstitutionDetail.tcndCustodianType}"
+                                                                     >
+                                                        <f:selectItem  itemValue=" " itemLabel="-- Select a Custodian Type --" />
+                                                        <f:selectItem itemValue = "SECURITIES" itemLabel="Securities"></f:selectItem>
+                                                        <f:selectItem itemValue = "CERT DEPOSIT" itemLabel="Certificate of Deposit"></f:selectItem>
+                                                    </h:selectOneMenu>
+                                                   </h:panelGroup> <!--/Custodian Type-->
+
+                                                    <!--Custodian Name-->
+                                                    <h:panelGroup layout="block" styleClass="form-group row">
+                                                        <label for="custodianName" class="col-md-6 col-form-label text-right">Custodian Name: </label>
+                                                        <p:inputText id="custodianName" value="#{inHouseInstitutionHandler.updatedInstitutionDetail.tcndCustodianName}" styleClass="form-control col-md-6">
+                                                        </p:inputText>
+                                                    </h:panelGroup> <!--/Custodian Name-->
+                                                </c:if>
+                                            </h:panelGroup>
+
+                                            <h:panelGroup layout="block" styleClass="col-md-4">
+                                                <!--Status-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="Status" class="col-md-6 col-form-label text-right ">Status: </label>
+                                                    <h:selectOneMenu id="status" styleClass="form-control col-md-6"
+                                                                     value="#{inHouseInstitutionHandler.updatedInstitutionDetail.statusCode}"
+                                                                     >
+                                                        <f:selectItem  itemValue=" " itemLabel="-- Select Status --" />
+                                                        <f:selectItems  value="#{systemUtilityHandler.statusItems}" />
+                                                    </h:selectOneMenu>
+                                                </h:panelGroup> <!--/Status-->
+
+                                                <!--Change Reason-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                   <c:choose>
+                                                       <c:when test="${(inHouseInstitutionHandler.updatedInstitutionDetail.statusCode != null and inHouseInstitutionHandler.updatedInstitutionDetail.statusCode != 'INA') or
+                                                                (inHouseInstitutionHandler.updatedInstitutionDetail.statusCode != null and inHouseInstitutionHandler.updatedInstitutionDetail.statusCode == 'INA' and      
+                                                             inHouseInstitutionHandler.updatedInstitutionDetail.statusChangeReasonCode != null and inHouseInstitutionHandler.updatedInstitutionDetail.statusChangeReasonCode == 'MA' or inHouseInstitutionHandler.updatedInstitutionDetail.statusChangeReasonCode == 'CO')}">
+                                                    <label for="ChangeReason" class="col-md-6 col-form-label text-right">Change Reason: </label>
+                                                    <h:selectOneMenu id="ChangeReason" styleClass="form-control col-md-6"
+                                                                     value="#{inHouseInstitutionHandler.updatedInstitutionDetail.statusChangeReasonCode}"
+                                                                     >
+                                                        <f:selectItem  itemValue=" " itemLabel="-- Select Change Reason --" />
+                                                        <f:selectItems  value="#{systemUtilityHandler.changeReasonCodeItems}" />
+                                                    </h:selectOneMenu> 
+                                                       </c:when>
+                                                       <c:otherwise>
+                                                       <label for="ChangeReason" class="col-md-6 col-form-label text-right">Change Reason: </label>
+                                                         <h:selectOneMenu id="ChangeReason" styleClass="form-control col-md-6"
+                                                                     value="#{inHouseInstitutionHandler.updatedInstitutionDetail.statusChangeReasonCode}"
+                                                                     
+                                                                     >
+                                                        <f:selectItem  itemValue=" " itemLabel="-- Select Change Reason --" />
+                                                        <f:selectItems  value="#{systemUtilityHandler.changeReasonCodeItems}" />
+                                                      </h:selectOneMenu>
+                                                       </c:otherwise>
+                                                   </c:choose>
+                                                </h:panelGroup> 
+                                                <!--/Change Reason-->
+
+                                                <!--Fiscal Year End Date-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="FiscalYearEndDate" class="col-md-6 col-form-label text-right">Fiscal Year End: </label>
+                                                    <p:inputText id="FiscalYearEndDate" value="#{inHouseInstitutionHandler.updatedInstitutionDetail.fiscalYearEnd}" styleClass="form-control col-md-6"></p:inputText>
+                                                </h:panelGroup> <!--/Fiscal Year End Date-->
+
+                                                <!--Last Audit Date-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="LastAuditDate" class="col-md-6 col-form-label text-right">Last Audit Date: </label>
+                                                    <p:calendar id="LastAuditDate" value="#{inHouseInstitutionHandler.updatedInstitutionDetail.dateLastAuditText}" inputStyleClass="form-control col-md-15" pattern="MM/dd/yyyy" mode="popup">
+                                                      
+                                                    </p:calendar>
+                                                </h:panelGroup> <!--/Last Audit Date-->
+
+                                                <!--Banking Board Approval Date-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="BankingBoardApprovalDate" class="col-md-6 col-form-label text-right">Banking Board Approval Date: </label>
+                                                      <p:calendar id="BankingBoardApprovalDate" value="#{inHouseInstitutionHandler.updatedInstitutionDetail.charterLicenseDateText}" inputStyleClass="form-control col-md-15" pattern="MM/dd/yyyy"  mode="popup"/>
+                                                </h:panelGroup> <!--/Banking Board Approval Date-->
+
+                                                <!--Charter License Issuance Date-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="CharterLicenseIssuanceDate" class="col-md-6 col-form-label text-right">Charter License Issuance Date: </label>
+                                                   <p:calendar id="CharterLicenseIssuanceDate" value="#{inHouseInstitutionHandler.updatedInstitutionDetail.openDateText}" inputStyleClass="form-control col-md-15" pattern="MM/dd/yyyy"  mode="popup"/>
+                                                 </h:panelGroup> <!--/Charter License Issuance Date-->
+
+                                                <!--Last Change of Control-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="LastChangeofControl" class="col-md-6 col-form-label text-right">Last Change of Control: </label>
+                                                    <p:calendar id="LastChangeofControl" value="#{inHouseInstitutionHandler.updatedInstitutionDetail.lastChangeControlDateText}" inputStyleClass="form-control col-md-15" pattern="MM/dd/yyyy"  mode="popup" showOn="none" readonly="true" />
+                                                </h:panelGroup> <!--/Last Change of Control-->
+
+                                                <!--Close Date-->
+                                                <h:panelGroup layout="block" styleClass="form-group row">
+                                                    <label for="CloseDate" class="col-md-6 col-form-label text-right">Close Date: </label>
+                                                <p:calendar id="CloseDate" value="#{inHouseInstitutionHandler.updatedInstitutionDetail.closeDateText}" mode="popup" inputStyleClass="form-control col-md-15" showOn="none" pattern="MM/dd/yyyy" readonly="true"/>
+                                                </h:panelGroup> <!--/Close Date-->
+                                            </h:panelGroup>
+                                        </h:panelGroup>
+                                      <h:panelGroup layout="block" styleClass="text-center">  
+                                          <c:choose>
+                                              <c:when test="${inHouseInstitutionHandler.superUser}">
+                                                  <p:commandButton id="saveButton" value="Save" styleClass="btn btn-primary margin" onclick="PF('saveConfirm').show()" >
+                                                  </p:commandButton>
+                                                  <p:confirmDialog message="Are you sure you want to modify the Institution?" showEffect="fade" hideEffect="fade" 
+                                                                   widgetVar="saveConfirm">
+                                                      <p:commandButton 
+                                                          value="Yes"  actionListener="#{inHouseInstitutionHandler.showPopups()}"
+                                                          onclick="PF('saveConfirm').hide()"
+                                                          update="@([id$='dialogs'])"
+                                                          oncomplete="if(#{inHouseInstitutionHandler.showDupPopup == 'Y'}) PF('dupNameDialog').show();
+                                                          
+                                                          if(#{inHouseInstitutionHandler.showTypePopup == 'Y'}) PF('typeChangeDialog').show();
+                                                          if(#{inHouseInstitutionHandler.showOtherPopup == 'Y'}) PF('nameChangeDialog').show()"
+                                                          />                                   
+                                                      <p:commandButton value="No" oncomplete="PF('saveConfirm').hide()"/>
+                                                  </p:confirmDialog> 
+
+                                              </c:when>
+                                              <c:otherwise>
+                                                  <p:commandButton id="saveButton" value="Save" styleClass="btn btn-primary margin" disabled="true" />    
+                                              </c:otherwise>
+                                          </c:choose>
+                                      </h:panelGroup>
+                                      
+                                      </p:tab>
+                                    <p:tab title="Address" id="address">       
+                                        <p:dataTable id="addressTable" class="table table-bordered table-hover"
+                                                     var="record"
+                                                     value="#{inHouseInstitutionHandler.address}"
+                                                     rows="5"
+                                                     paginator="true"
+                                                     currentPageReportTemplate="Record {startRecord}-{endRecord} of {totalRecords}"
+                                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                                                     {PreviousPageLink} {NextPageLink}
+                                                     {LastPageLink}" sortMode="multiple">
+
+                                            <p:column headerText="Type"
+                                                      sortBy="#{record.addressTypeCode}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.addressTypeCode}" />
+                                            </p:column>
+                                            <p:column headerText="Address"
+                                                      sortBy="#{record.addressLine1}"
+                                                      width="15%">
+                                                <h:outputText value="#{record.addressLine1}" />
+                                            </p:column>
+                                            <p:column headerText="City"
+                                                      sortBy="#{record.city}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.city}" />
+                                            </p:column>
+                                            <p:column headerText="State"
+                                                      sortBy="#{record.stateCode}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.stateCode}" />
+                                            </p:column>
+                                            <p:column headerText="Zip"
+                                                      sortBy="#{record.zipcode}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.zipcode}" />
+                                            </p:column>
+                                            <p:column 
+                                                      width="2%">
+                                               <i class="fas fa-trash-alt"></i>
+                                            </p:column>
+                                        </p:dataTable>   
+                                        <h:panelGroup layout="block" styleClass="text-center">
+                                            <p:commandButton ajax="false" id="addButton1" value="Add New" class="btn btn-primary margin" action="#" />   
+                                        </h:panelGroup>
+                                    </p:tab>
+                                    <p:tab title="Applications" id="applications">
+                                        <p:dataTable id="applicationsTable" class="table table-bordered table-hover"
+                                                     var="record"
+                                                     value="#{inHouseInstitutionHandler.applications}"
+                                                     rows="25"
+                                                     paginator="true"
+                                                     currentPageReportTemplate="Record {startRecord}-{endRecord} of {totalRecords}"
+                                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                                                     {PreviousPageLink} {NextPageLink}
+                                                     {LastPageLink}" sortMode="multiple">
+
+                                            <p:column headerText="Transaction Type Code"
+                                                      sortBy="#{record.transactionTypeCode}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.transactionTypeCode}" />
+                                            </p:column>
+                                            <p:column headerText="Application Type"
+                                                      sortBy="#{record.applicationType}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.applicationType}" />
+                                            </p:column>
+                                            <p:column headerText="Received Date"
+                                                      sortBy="#{record.recDate}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.recDate}" >
+                                                    <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Due"
+                                                      sortBy="#{record.dueDate}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.dueDate}" >
+                                                    <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column headerText="CM Follow-Up"
+                                                      sortBy="#{record.pmFollowupDate}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.pmFollowupDate}" >
+                                                    <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Board Approve"
+                                                      sortBy="#{record.boardApproveDate}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.boardApproveDate}" >
+                                                    <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Complete"
+                                                      sortBy="#{record.completeDate}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.completeDate}" >
+                                                    <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Processed"
+                                                      sortBy="#{record.processedBy}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.processedBy}" />
+                                            </p:column>
+                                             <p:column 
+                                                      width="2%">
+                                               <i class="fas fa-trash-alt"></i>
+                                            </p:column>
+                                        </p:dataTable>   
+                                        <h:panelGroup layout="block" styleClass="text-center">
+                                            <p:commandButton ajax="false" id="addButton2" value="Add New" class="btn btn-primary margin" action="#" />   
+                                        </h:panelGroup>
+                                    </p:tab>
+                                    <p:tab title="Associations" >
+                                        <h:form>
+                                             
+                                            <p:dataTable id="associationsTable" class="table table-bordered table-hover"
+                                                     var="associationData"
+                                                     value="#{inHouseInstitutionHandler.associations}"
+                                                     rows="5"
+                                                     paginator="true"
+                                                     currentPageReportTemplate="Record {startRecord}-{endRecord} of {totalRecords}"
+                                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}" sortMode="multiple"
+                                                     selection="#{inHouseInstitutionHandler.selectedAssociation}"
+                                                     selectionMode="single"
+                                                     rowKey="#{associationData.entityID}"
+                                                     >
+                                               
+                                                <p:ajax event="rowSelect" update="@([id$='associationBankTable'])" listener="#{inHouseInstitutionHandler.updateHodlingCompanyData}" />
+                                                    
+                                            <p:column headerText="Name"
+                                                      sortBy="#{associationData.associationName}"
+                                                      width="5%">
+                                                <h:outputText value="#{associationData.associationName}" />
+                                            </p:column>
+                                            <p:column headerText="Type"
+                                                      sortBy="#{associationData.assocTypeDesc}"
+                                                      width="5%">
+                                                <h:outputText value="#{associationData.assocTypeDesc}" />
+                                            </p:column>
+                                            <p:column headerText="Role"
+                                                      sortBy="#{associationData.roleTypeDesc}"
+                                                      width="5%">
+                                                <h:outputText value="#{associationData.roleTypeDesc}" />
+                                            </p:column>
+                                            <p:column 
+                                                      width="2%">
+                                               <i class="fas fa-trash-alt"></i>
+                                            </p:column>
+                                        </p:dataTable>   
+                                        <h:panelGroup layout="block" styleClass="text-center">
+                                            <p:commandButton ajax="false" id="addButton3" value="Add New" class="btn btn-primary margin" action="#" />   
+                                        </h:panelGroup>
+                                       <!-- Just to check -->
+                                            <h:panelGroup layout="block" styleClass="text-center alignText">
+                                            Banks Owned By Holding Company 
+                                        </h:panelGroup>
+                                        <p:dataTable id="associationBankTable" class="table table-bordered table-hover"
+                                                     var="association"
+                                                     value="#{inHouseInstitutionHandler.associationBanks}"
+                                                     rows="5"
+                                                     paginator="true"
+                                                     currentPageReportTemplate="Record {startRecord}-{endRecord} of {totalRecords}"
+                                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}" sortMode="multiple"
+                                                     rowKey="#{association.rowKey}">
+
+                                            <p:column headerText="Bank Name"
+                                                      sortBy="#{association.bankName}"
+                                                      width="5%">
+                                                <h:outputText value="#{association.bankName}" />
+                                            </p:column>
+                                            <p:column headerText="Address"
+                                                      sortBy="#{record.address}"
+                                                      width="5%">
+                                                <h:outputText value="#{association.address}" />
+                                            </p:column>
+                                            <p:column headerText="City"
+                                                      sortBy="#{association.city}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.city}" />
+                                            </p:column>
+                                            <p:column 
+                                                      width="2%">
+                                               <i class="fas fa-trash-alt"></i>
+                                            </p:column>
+                                        </p:dataTable>   
+                                        <h:panelGroup layout="block" styleClass="text-center">
+                                            <p:commandButton ajax="false" id="addButton4" value="Add New" class="btn btn-primary margin" action="#" />   
+                                        </h:panelGroup>
+                                            <!-- End of just to check -->
+                                      </h:form>
+
+                                    </p:tab>
+                                    <c:if test="${inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode != null and
+                                                               inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode == 'MT'}">
+                                        <p:tab title="Agents" id="agents">
+                                            <p:dataTable id="agentsTable" class="table table-bordered table-hover"
+                                                         var="record"
+                                                         value="#{inHouseInstitutionHandler.agents}"
+                                                         rows="5"
+                                                         paginator="true"
+                                                         currentPageReportTemplate="Record {startRecord}-{endRecord} of {totalRecords}"
+                                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                                                         {PreviousPageLink} {NextPageLink}
+                                                         {LastPageLink}" sortMode="multiple">
+
+                                                <p:column headerText="Agent Name"
+                                                          sortBy="#{record.name}"
+                                                          width="5%">
+                                                    <h:outputText value="#{record.name}" />
+                                                </p:column>
+                                                <p:column headerText="Agent Number"
+                                                          sortBy="#{record.number}"
+                                                          width="5%">
+                                                    <h:outputText value="#{record.number}" />
+                                                </p:column>
+                                                <p:column headerText="Status"
+                                                          sortBy="#{record.status}"
+                                                          width="5%">
+                                                    <h:outputText value="#{record.status}" />
+                                                </p:column>
+                                                <p:column headerText="Open Date"
+                                                          sortBy="#{record.openDate}"
+                                                          width="5%">
+                                                    <h:outputText value="#{record.openDate}" >
+                                                        <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                                    </h:outputText>
+                                                </p:column>
+                                                <p:column headerText="Close Date"
+                                                          sortBy="#{record.closeDate}"
+                                                          width="5%">
+                                                    <h:outputText value="#{record.closeDate}" >
+                                                        <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                                    </h:outputText> 
+                                                </p:column>
+                                                <p:column headerText="Address"
+                                                          sortBy="#{record.address}"
+                                                          width="5%">
+                                                    <h:outputText value="#{record.address}" />
+                                                </p:column>
+                                                <p:column headerText="Phone"
+                                                          sortBy="#{record.phone}"
+                                                          width="5%">
+                                                    <h:outputText value="#{record.phone}" />
+                                                </p:column>
+                                                <p:column 
+                                                      width="2%">
+                                                <i class="fas fa-trash-alt"></i>
+                                                </p:column>
+                                            </p:dataTable>   
+                                              <div class="text-center">
+                                            <h:panelGroup class="col-md-6 col-lg-1">
+                                                <p:commandButton ajax="false" id="addButtonAgent" value="Add New" class="btn btn-primary margin text-center" action="#" />   
+                                            </h:panelGroup>
+                                            <h:panelGroup class="float-right">
+                                                <label for="activeAgents" class="col-form-label float-left display-weight">Number of Active Agents: #{inHouseInstitutionHandler.activeAgents} </label>                                    
+                                            </h:panelGroup>
+                                        </div> 
+                                        </p:tab>
+                                    </c:if>
+                                    <c:if test="${inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode != null and
+                                                               inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode == 'IT'}">
+                                        <p:tab title="Banks Serviced" id="banksServiced">
+                                            <p:dataTable id="banksServicedTable" class="table table-bordered table-hover"
+                                                         var="record"
+                                                         value="#{inHouseInstitutionHandler.banks}"
+                                                         rows="5"
+                                                         paginator="true"
+                                                         currentPageReportTemplate="Record {startRecord}-{endRecord} of {totalRecords}"
+                                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                                                         {PreviousPageLink} {NextPageLink}
+                                                         {LastPageLink}" sortMode="multiple">
+
+                                                <p:column headerText="Institution Name"
+                                                          sortBy="#{record.name}"
+                                                          width="5%">
+                                                    <h:outputText value="#{record.name}" />
+                                                </p:column>
+                                                <p:column headerText="Status"
+                                                          sortBy="#{record.status}"
+                                                          width="5%">
+                                                    <h:outputText value="#{record.status}" />
+                                                </p:column>
+                                                <p:column headerText="Institution Type"
+                                                          sortBy="#{record.type}"
+                                                          width="5%">
+                                                    <h:outputText value="#{record.type}" />
+                                                </p:column>
+                                                <p:column headerText="City"
+                                                          sortBy="#{record.city}"
+                                                          width="5%">
+                                                    <h:outputText value="#{record.city}" />
+                                                </p:column>
+                                                <p:column 
+                                                      width="2%">
+                                               <i class="fas fa-trash-alt"></i>
+                                            </p:column>
+                                            </p:dataTable>   
+                                            <h:panelGroup layout="block" styleClass="text-center">
+                                                <p:commandButton ajax="false" id="addButtonbankServiced" value="Add New" class="btn btn-primary margin" action="#" />   
+                                            </h:panelGroup>
+                                        </p:tab>
+                                    </c:if>
+                                    <p:tab title="Complaints" id="complaints">
+                                        <p:dataTable id="complaintsTable" class="table table-bordered table-hover"
+                                                     var="record"
+                                                     value="#{inHouseInstitutionHandler.complaints}"
+                                                     rows="10"
+                                                     paginator="true"
+                                                     currentPageReportTemplate="Record {startRecord}-{endRecord} of {totalRecords}"
+                                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                                                     {PreviousPageLink} {NextPageLink}
+                                                     {LastPageLink}" sortMode="multiple">
+
+                                            <p:column headerText="Complainant"
+                                                      sortBy="#{record.complaintName}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.complaintName}" />
+                                            </p:column>
+                                            <p:column headerText="Received"
+                                                      sortBy="#{record.receivedDate}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.receivedDate}" >
+                                                    <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Reply Due"
+                                                      sortBy="#{record.replydueDate}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.replydueDate}" >
+                                                    <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column headerText="2nd Req. Sent"
+                                                      sortBy="#{record.secondRqstSentDate}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.secondRqstSentDate}" >
+                                                    <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column headerText="2nd Reply Due"
+                                                      sortBy="#{record.secondReplyDueDate}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.secondReplyDueDate}" />
+                                            </p:column>
+                                            <p:column headerText="Add Info Req"
+                                                      sortBy="#{record.addlInfoRqstDate}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.addlInfoRqstDate}" >
+                                                    <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Closed"
+                                                      sortBy="#{record.closedDate}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.closedDate}" >
+                                                    <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                                </h:outputText>  
+                                            </p:column>
+                                             <p:column 
+                                                      width="2%">
+                                               <i class="fas fa-trash-alt"></i>
+                                            </p:column>
+                                        </p:dataTable>  
+                                        <h:panelGroup layout="block" styleClass="text-center">
+                                            <p:commandButton ajax="false" id="addButton5" value="Add New" class="btn btn-primary margin" action="#" />   
+                                        </h:panelGroup>
+                                    </p:tab>
+                                    <p:tab title="Correspondence" id="correspondence">
+                                        <p:dataTable id="correspondenceTable" class="table table-bordered table-hover"
+                                                     var="record"
+                                                     value="#{inHouseInstitutionHandler.correspondence}"
+                                                     rows="5"
+                                                     paginator="true"
+                                                     currentPageReportTemplate="Record {startRecord}-{endRecord} of {totalRecords}"
+                                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                                                     {PreviousPageLink} {NextPageLink}
+                                                     {LastPageLink}" sortMode="multiple">
+
+                                            <p:column headerText="Correspondent Name"
+                                                      sortBy="#{record.correspondentName}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.correspondentName}" />
+                                            </p:column>
+                                            <p:column headerText="Correspondent Email"
+                                                      sortBy="#{record.correspondentEmail}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.correspondentEmail}" />
+                                            </p:column>
+                                            <p:column headerText="Method Received"
+                                                      sortBy="#{record.methodReceived}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.methodReceived}" />
+                                            </p:column>
+                                            <p:column headerText="Received"
+                                                      sortBy="#{record.received}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.received}" >
+                                                    <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Response Sent"
+                                                      sortBy="#{record.responseSent}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.responseSent}" >
+                                                    <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Staff Member"
+                                                      sortBy="#{record.staffMember}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.staffMember}" />
+                                            </p:column>
+                                             <p:column 
+                                                      width="2%">
+                                               <i class="fas fa-trash-alt"></i>
+                                            </p:column>
+                                        </p:dataTable>
+                                        <h:panelGroup layout="block" styleClass="text-center">
+                                            <p:commandButton ajax="false" id="addButton6" value="Add New" class="btn btn-primary margin" action="#" />   
+                                        </h:panelGroup>
+
+                                    </p:tab>
+                                    <p:tab title="Doing Business As" id="dba">
+                                        <p:dataTable id="dbaTable" class="table table-bordered table-hover"
+                                                     var="record"
+                                                     value="#{inHouseInstitutionHandler.dba}"
+                                                     rows="10"
+                                                     paginator="true"
+                                                     currentPageReportTemplate="Record {startRecord}-{endRecord} of {totalRecords}"
+                                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                                                     {PreviousPageLink} {NextPageLink}
+                                                     {LastPageLink}" sortMode="multiple">
+
+                                            <p:column headerText="DBA Name"
+                                                      sortBy="#{record.name}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.name}" />
+                                            </p:column>
+                                             <p:column 
+                                                      width="2%">
+                                               <i class="fas fa-trash-alt"></i>
+                                            </p:column>
+                                        </p:dataTable>   
+                                        <h:panelGroup layout="block" styleClass="text-center">
+                                            <p:commandButton ajax="false" id="addButton7" value="Add New" class="btn btn-primary margin" action="#" />   
+                                        </h:panelGroup>
+                                    </p:tab>
+                                    <p:tab title="Email" id="email">
+                                        <p:dataTable id="emailTable" class="table table-bordered table-hover"
+                                                     var="record"
+                                                     value="#{inHouseInstitutionHandler.email}"
+                                                     rows="5"
+                                                     paginator="true"
+                                                     currentPageReportTemplate="Record {startRecord}-{endRecord} of {totalRecords}"
+                                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                                                     {PreviousPageLink} {NextPageLink}
+                                                     {LastPageLink}" sortMode="multiple">
+
+                                            <p:column headerText="Email Type"
+                                                      sortBy="#{record.emailTypeDesc}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.emailTypeDesc}" />
+                                            </p:column>
+                                            <p:column headerText="Email Address"
+                                                      sortBy="#{record.emailAddress}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.emailAddress}" />
+                                            </p:column>
+                                             <p:column 
+                                                      width="2%">
+                                               <i class="fas fa-trash-alt"></i>
+                                            </p:column>
+                                        </p:dataTable>
+                                        <h:panelGroup layout="block" styleClass="text-center">
+                                            <p:commandButton ajax="false" id="addButton8" value="Add New" class="btn btn-primary margin" action="#" />   
+                                        </h:panelGroup>
+                                    </p:tab>
+                                    <p:tab title="Examinations" id = "examinations"> 
+                                        <p:dataTable id="examsTable" class="table table-bordered table-hover"
+                                                     var="record"
+                                                     value="#{inHouseInstitutionHandler.exams}"
+                                                     rows="25"
+                                                     paginator="true"
+                                                     currentPageReportTemplate="Record {startRecord}-{endRecord} of {totalRecords}"
+                                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                                                     {PreviousPageLink} {NextPageLink}
+                                                     {LastPageLink}" sortMode="multiple"
+                                                     selection="#{inHouseInstitutionHandler.selectedExam}"
+                                                     selectionMode="single"
+                                                     rowKey="#{record.examSeq}">
+                                        <p:ajax event="rowSelect" listener="#{inHouseInstitutionHandler.navigateToExamsPage}" />
+
+                                            <p:column headerText="Start Date"
+                                                      sortBy="#{record.actualStartDate}"
+                                                      width="7%">
+                                                <h:outputText value="#{record.actualStartDate}" >
+                                                    <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column headerText="As Of Date"
+                                                      sortBy="#{record.asOfDate}"
+                                                      width="7%">
+                                                <h:outputText value="#{record.asOfDate}" >
+                                                    <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Status"
+                                                      sortBy="#{record.status}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.status}" />
+                                            </p:column>
+                                            <p:column headerText="Type"
+                                                      sortBy="#{record.type}"
+                                                      width="10%">
+                                                <h:outputText value="#{record.type}" />
+                                            </p:column>
+                                            <p:column headerText="Scope"
+                                                      sortBy="#{record.scope}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.scope}" />
+                                            </p:column>
+                                            <p:column headerText="Purpose"
+                                                      sortBy="#{record.purpose}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.purpose}" />
+                                            </p:column>
+                                            <p:column headerText="Composite Rating"
+                                                      sortBy="#{record.compositeRating}"
+                                                      width="7%">
+                                                <h:outputText value="#{record.compositeRating}" />
+                                            </p:column>
+                                            <p:column headerText="Component Rating"
+                                                      sortBy="#{record.componentRatingC}"
+                                                      width="8%">
+                                                <h:outputText value="#{record.componentRatingC}  #{record.componentRatingA}  #{record.componentRatingM}  #{record.componentRatingE}  #{record.componentRatingL}  #{record.componentRatingS}" />
+                                            </p:column>
+                                            <p:column headerText="Agency"
+                                                      sortBy="#{record.agencyCode}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.agencyCode}" />
+                                            </p:column>
+                                            <p:column headerText="Lead"
+                                                      sortBy="#{record.agencyLead}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.agencyLead}" />
+                                            </p:column>
+                                             <p:column 
+                                                      width="5%">
+                                               <i class="fas fa-trash-alt"></i>
+                                            </p:column>
+                                        </p:dataTable>
+                                         <div class="text-center">
+                                            <h:panelGroup class="col-md-6 col-lg-1">
+                                                <p:commandButton ajax="false" id="addButtonExam" value="Add New" class="btn btn-primary margin text-center" action="#" />   
+                                            </h:panelGroup>
+                                            <h:panelGroup class="float-left">
+                                                <label for="display1" class="col-form-label float-left display-weight">Display:  </label>
+                                                <h:selectOneMenu  id="display1" styleClass="custom-select display-align" value="#{inHouseInstitutionHandler.examType}"  >
+                                                    <p:ajax listener="#{inHouseInstitutionHandler.updateExamTable}" update="examsTable" />
+                                                    <f:selectItem itemValue=" " itemLabel="All"></f:selectItem>
+                                                    <f:selectItem itemValue="Y" itemLabel="Last 9 Years"></f:selectItem>
+                                                </h:selectOneMenu> 
+                                            </h:panelGroup>
+                                        </div>                
+                                       
+                                    </p:tab>
+                                    <p:tab title="Enforcements" id = "enforcements"> 
+                                        <p:dataTable id="enforcementsTable" class="table table-bordered table-hover"
+                                                     var="record"
+                                                     value="#{inHouseInstitutionHandler.enforcements}"
+                                                     rows="10"
+                                                     paginator="true"
+                                                     currentPageReportTemplate="Record {startRecord}-{endRecord} of {totalRecords}"
+                                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                                                     {PreviousPageLink} {NextPageLink}
+                                                     {LastPageLink}" sortMode="multiple">
+
+                                            <p:column headerText="Enforcement Action"
+                                                      sortBy="#{record.action}"
+                                                      width="10%">
+                                                <h:outputText value="#{record.action}" >
+
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Agency Code"
+                                                      sortBy="#{record.agency}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.agency}" >
+                                                    <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Action Start Date"
+                                                      sortBy="#{record.startDate}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.startDate}" >
+                                                    <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Action End Date"
+                                                      sortBy="#{record.endDate}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.endDate}" >
+                                                    <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Action End Reason"
+                                                      sortBy="#{record.endReason}"
+                                                      width="10%">
+                                                <h:outputText value="#{record.endReason}" />
+                                            </p:column>
+                                            <p:column 
+                                                      width="2%">
+                                               <i class="fas fa-trash-alt"></i>
+                                            </p:column>
+                                        </p:dataTable>
+                                        <h:panelGroup layout="block" styleClass="text-center">
+                                            <p:commandButton ajax="false" id="addButtonEnforcements" value="Add New" class="btn btn-primary margin" action="#" />   
+                                        </h:panelGroup>
+                                    </p:tab>     
+                                    <p:tab title="Facilities" id="facilities">
+                                        <p:dataTable id="facilitiesTable" class="table table-bordered table-hover"
+                                                     var="record"
+                                                     value="#{inHouseInstitutionHandler.facilities}"
+                                                     rows="25"
+                                                     paginator="true"
+                                                     currentPageReportTemplate="Record {startRecord}-{endRecord} of {totalRecords}"
+                                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                                                     {PreviousPageLink} {NextPageLink}
+                                                     {LastPageLink}" sortMode="multiple">
+
+                                            <p:column headerText="Facility Name"
+                                                      sortBy="#{record.facilityName}"
+                                                      width="20%">
+                                                <h:outputText value="#{record.facilityName}" />
+                                            </p:column>
+                                            <p:column headerText="Facility Type"
+                                                      sortBy="#{record.facilityType}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.facilityType}" />
+                                            </p:column>
+                                            <p:column headerText="Branch Number"
+                                                      sortBy="#{record.branchNumber}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.branchNumber}" />
+                                            </p:column>
+                                            <p:column headerText="Status"
+                                                      sortBy="#{record.status}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.status}" />
+                                            </p:column>
+                                            <p:column headerText="City"
+                                                      sortBy="#{record.city}"
+                                                      width="10%">
+                                                <h:outputText value="#{record.city}" />
+                                            </p:column>
+                                            <p:column headerText="State"
+                                                      sortBy="#{record.state}"
+                                                      width="3%">
+                                                <h:outputText value="#{record.state}" />
+                                            </p:column>
+                                             <p:column 
+                                                      width="4%">
+                                               <i class="fas fa-trash-alt"></i>
+                                            </p:column>
+                                        </p:dataTable>
+                                         <div class="text-center">
+                                            <h:panelGroup class="col-md-6 col-lg-1">
+                                                <p:commandButton ajax="false" id="addButtonFacilities" value="Add New" class="btn btn-primary margin text-center" action="#" />   
+                                            </h:panelGroup>
+                                            <h:panelGroup class="float-right">
+                                                <label for="activeFacilities" class="col-form-label float-left display-weight">Number of Active Facilities: #{inHouseInstitutionHandler.activeFacilities} </label>                                    
+                                            </h:panelGroup>
+                                        </div>          
+                                    </p:tab> 
+                                    <p:tab title="History" id="history">
+                                        <p:dataTable id="historyTable" class="table table-bordered table-hover"
+                                                     var="record"
+                                                     value="#{inHouseInstitutionHandler.history}"
+                                                     rows="5"
+                                                     paginator="true"
+                                                     currentPageReportTemplate="Record {startRecord}-{endRecord} of {totalRecords}"
+                                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                                                     {PreviousPageLink} {NextPageLink}
+                                                     {LastPageLink}" sortMode="multiple">
+
+                                            <p:column headerText="Effective Date"
+                                                      sortBy="#{record.effectiveDate}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.effectiveDate}" >
+                                                    <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column headerText="System Date"
+                                                      sortBy="#{record.changedDate}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.changedDate}" >
+                                                    <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Changed By"
+                                                      sortBy="#{record.changedBy}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.changedBy}" />
+                                            </p:column>
+                                            <p:column headerText="Type"
+                                                      sortBy="#{record.changeType}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.changeType}" />
+                                            </p:column>
+                                            <p:column headerText="Old Value"
+                                                      sortBy="#{record.oldValue}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.oldValue}" />
+                                            </p:column>
+                                            <p:column headerText="New Value"
+                                                      sortBy="#{record.newValue}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.newValue}" />
+                                            </p:column>
+                                        </p:dataTable>
+                                    </p:tab>
+                                    <p:tab title="Institution Staff" id="institutionStaff">
+                                        <div style="clear: both; padding-top: 5px;" />
+
+                                        <h:panelGroup layout="block" styleClass="form-row mb-3">
+                                            <div style="width: 490px; float: left; padding-right: 25px;">
+                                                <h:panelGroup layout="block" styleClass="text-center alignText" style="padding-top:0px;">
+                                                    Bank Staff (Excluding Board of Directors)
+                                                </h:panelGroup>
+                                                <p:dataTable id="institutionStaffTable" class="table table-bordered table-hover"
+                                                             var="record"
+                                                             value="#{inHouseInstitutionHandler.institutionStaff}"
+                                                             rows="25"
+                                                             paginator="true"
+                                                             rowIndexVar="rowIndex"
+                                                             currentPageReportTemplate="Record {startRecord}-{endRecord} of {totalRecords}"
+                                                             paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                                                             {PreviousPageLink} {NextPageLink}
+                                                             {LastPageLink}" sortMode="multiple">
+
+                                                    <p:column headerText="First Name"
+                                                              sortBy="#{record.firstName}"
+                                                              width="5%">
+                                                        <h:outputText value="#{record.firstName}" rendered="#{inHouseInstitutionHandler.institutionStaff[rowIndex-1].firstName ne record.firstName }" />
+                                                        <h:outputText value="#{record.firstName}" styleClass="#{inHouseInstitutionHandler.institutionStaff[rowIndex-1].firstName ne record.firstName ? '' : 'hide' }" />
+                                                    </p:column>
+                                                    <p:column headerText="Last Name"
+                                                              sortBy="#{record.lastName}"
+                                                              width="5%">
+                                                        <h:outputText value="#{record.lastName}" />
+                                                    </p:column>
+                                                    <p:column headerText="Role Title"
+                                                              sortBy="#{record.roleTitle}"
+                                                              width="5%">
+                                                        <h:outputText value="#{record.roleTitle}" />
+                                                    </p:column>
+                                                    <p:column headerText="Status"
+                                                              sortBy="#{record.status}"
+                                                              width="5%">
+                                                        <h:outputText value="#{record.status}" />
+                                                    </p:column>
+                                                     <p:column 
+                                                      width="4%">
+                                                       <i class="fas fa-trash-alt"></i>
+                                                      </p:column>
+                                                </p:dataTable>
+
+                                            </div>
+                                            <div style="width: 490px; float: right;">
+                                                <h:panelGroup layout="block" styleClass="text-center alignText" style="padding-top:0px;">
+                                                    Board of Directors/Managers
+                                                </h:panelGroup>
+                                                <p:dataTable id="bodTable" class="table table-bordered table-hover"
+                                                             var="record"
+                                                             value="#{inHouseInstitutionHandler.bodStaff}"
+                                                             rows="25"
+                                                             paginator="true"
+                                                             currentPageReportTemplate="Record {startRecord}-{endRecord} of {totalRecords}"
+                                                             paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                                                             {PreviousPageLink} {NextPageLink}
+                                                             {LastPageLink}" sortMode="multiple">
+
+                                                    <p:column headerText="First Name"
+                                                              sortBy="#{record.bodFirstName}"
+                                                              width="5%">
+                                                        <h:outputText value="#{record.bodFirstName}" />
+                                                    </p:column>
+                                                    <p:column headerText="Last Name"
+                                                              sortBy="#{record.bodLastName}"
+                                                              width="5%">
+                                                        <h:outputText value="#{record.bodLastName}" />
+                                                    </p:column>
+                                                    <p:column headerText="Role Title"
+                                                              sortBy="#{record.bodTitle}"
+                                                              width="10%">
+                                                        <h:outputText value="#{record.bodTitle}" />
+                                                    </p:column>
+                                                    <p:column headerText="Status"
+                                                              sortBy="#{record.status}"
+                                                              width="5%">
+                                                        <h:outputText value="#{record.status}" />
+                                                    </p:column>
+                                                     <p:column 
+                                                      width="4%">
+                                                     <i class="fas fa-trash-alt"></i>
+                                                     </p:column>
+                                                </p:dataTable>   
+                                            </div>
+                                        </h:panelGroup>
+                                        <div class="text-center">
+                                            <h:panelGroup class="col-md-6 col-lg-1">
+                                                <p:commandButton ajax="false" id="addButtonBod" value="Add New" class="btn btn-primary margin text-center" action="#" />   
+                                            </h:panelGroup>
+
+                                            <h:panelGroup class="float-left">
+                                                <label for="display" class="col-form-label float-left display-weight">Display:  </label>
+                                                <h:selectOneMenu  id="display" styleClass="custom-select display-align" value="#{inHouseInstitutionHandler.instStaffType}"  >
+                                                    <p:ajax listener="#{inHouseInstitutionHandler.updateInstitutionStaffDataTable}" update="institutionStaffTable bodTable" />
+                                                    <f:selectItem itemValue=" " itemLabel="All"></f:selectItem>
+                                                    <f:selectItem itemValue = "Y" itemLabel="Active"></f:selectItem>
+                                                    <f:selectItem itemValue = "N" itemLabel="Inactive"></f:selectItem>
+                                                </h:selectOneMenu> 
+                                            </h:panelGroup>
+                                        </div>                                   
+                                    </p:tab>
+                                    <p:tab title="Notes" id="notes">
+                                        <p:dataTable id="notesTable" class="table table-bordered table-hover"
+                                                     var="record"
+                                                     value="#{inHouseInstitutionHandler.notes}"
+                                                     rows="10"
+                                                     paginator="true"
+                                                     currentPageReportTemplate="Record {startRecord}-{endRecord} of {totalRecords}"
+                                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                                                     {PreviousPageLink} {NextPageLink}
+                                                     {LastPageLink}" sortMode="multiple">
+
+                                            <p:column headerText="Effective Date"
+                                                      sortBy="#{record.effectiveDate}"
+                                                      width="8%">
+                                                <h:outputText value="#{record.effectiveDate}" >
+                                                    <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Type"
+                                                      sortBy="#{record.type}"
+                                                      width="8%">
+                                                <h:outputText value="#{record.type}" />
+                                            </p:column>
+                                            <p:column headerText="Note"
+                                                      sortBy="#{record.note}"
+                                                      width="40%">
+                                                <h:outputText value="#{record.note}" />
+                                            </p:column>
+                                             <p:column 
+                                                      width="4%">
+                                               <i class="fas fa-trash-alt"></i>
+                                            </p:column>
+                                        </p:dataTable>
+                                        <h:panelGroup layout="block" styleClass="text-center">
+                                            <p:commandButton ajax="false" id="addButton12" value="Add New" class="btn btn-primary margin" action="#" />   
+                                        </h:panelGroup>
+                                    </p:tab>
+                                    <p:tab title="Phone" id="phone">
+                                        <p:dataTable id="phoneTable" class="table table-bordered table-hover"
+                                                     var="record"
+                                                     value="#{inHouseInstitutionHandler.phone}"
+                                                     rows="5"
+                                                     paginator="true"
+                                                     currentPageReportTemplate="Record {startRecord}-{endRecord} of {totalRecords}"
+                                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                                                     {PreviousPageLink} {NextPageLink}
+                                                     {LastPageLink}" sortMode="multiple">
+
+                                            <p:column headerText="Type"
+                                                      sortBy="#{record.description}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.description}" />
+                                            </p:column>
+                                            <p:column headerText="Phone"
+                                                      sortBy="#{record.phone}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.phone}" />
+                                            </p:column>
+                                             <p:column 
+                                                      width="1%">
+                                               <i class="fas fa-trash-alt"></i>
+                                            </p:column>
+                                        </p:dataTable>
+                                        <h:panelGroup layout="block" styleClass="text-center">
+                                            <p:commandButton ajax="false" id="addButton13" value="Add New" class="btn btn-primary margin" action="#" />   
+                                        </h:panelGroup>
+
+                                    </p:tab>
+                                    <p:tab title="Services" id="services">
+                                        <p:dataTable id="servicesTable" class="table table-bordered table-hover"
+                                                     var="record"
+                                                     value="#{inHouseInstitutionHandler.services}"
+                                                     rows="25"
+                                                     paginator="true"
+                                                     currentPageReportTemplate="Record {startRecord}-{endRecord} of {totalRecords}"
+                                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                                                     {PreviousPageLink} {NextPageLink}
+                                                     {LastPageLink}" sortMode="multiple">
+
+                                            <p:column headerText="Service"
+                                                      sortBy="#{record.service}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.service}" />
+                                            </p:column>
+                                            <p:column headerText="Status"
+                                                      sortBy="#{record.status}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.status}" />
+                                            </p:column>
+                                             <p:column 
+                                                      width="1%">
+                                               <i class="fas fa-trash-alt"></i>
+                                            </p:column>
+                                        </p:dataTable>
+                                        <h:panelGroup layout="block" styleClass="text-center">
+                                            <p:commandButton ajax="false" id="addButton14" value="Add New" class="btn btn-primary margin" action="#" />   
+                                        </h:panelGroup>
+
+                                    </p:tab>
+                                    <p:tab title="Supervisory Staff" id="supervisoryStaff">
+                                        <p:dataTable id="staffTable" class="table table-bordered table-hover"
+                                                     var="record"
+                                                     value="#{inHouseInstitutionHandler.supervisoryStaff}"
+                                                     rows="5"
+                                                     paginator="true"
+                                                     currentPageReportTemplate="Record {startRecord}-{endRecord} of {totalRecords}"
+                                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                                                     {PreviousPageLink} {NextPageLink}
+                                                     {LastPageLink}" sortMode="multiple">
+
+                                            <p:column headerText="Name"
+                                                      sortBy="#{record.staffName}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.staffName}" />
+                                            </p:column>
+                                            <p:column headerText="Role"
+                                                      sortBy="#{record.staffTypeDesc}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.staffTypeDesc}" />
+                                            </p:column>
+                                            <p:column headerText="Email Address"
+                                                      sortBy="#{record.email}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.email}" />
+                                            </p:column>
+                                            <p:column headerText="Phone"
+                                                      sortBy="#{record.phone}"
+                                                      width="5%">
+                                                <h:outputText value="#{record.phone}" />
+                                            </p:column>
+                                             <p:column
+                                                      width="2%">
+                                               <i class="fas fa-trash-alt"></i>
+                                            </p:column>
+                                        </p:dataTable>   
+                                        <h:panelGroup layout="block" styleClass="text-center">
+                                            <p:commandButton ajax="false" id="addButton15" value="Add New" class="btn btn-primary margin" action="#" />   
+                                        </h:panelGroup>
+                                    </p:tab>
+
+                                </p:accordionPanel>
+                                </h:form>  
+                        </h:panelGroup>
+                    <p:panelGrid id="dialogs">
+                            <p:dialog widgetVar="typeChangeDialog" visible="#{inHouseInstitutionHandler.showTypePopup == 'Y'}" id="typeChangeDialogId" header="Institution Conversion" modal="true" width="900" height="600">
+                           
+                                <p:messages id="message"  showDetail="false" autoUpdate="true" closable="true"/>
+                                <hr />        
+                                <h:panelGroup layout="block" styleClass="col-md-8">
+                                    <!--Previous Name -->
+                                   <h:panelGroup layout="block" styleClass="form-group row">
+                                       <label for="previousName" class="col-md-3 col-form-label float-left">Previous Name: </label>
+                                       <p:inputText id="previousName" value="#{inHouseInstitutionHandler.conversion.oldName}" styleClass="form-control col-md-10 col-lg-8 col-lg-4" readonly="true"></p:inputText>
+                                   </h:panelGroup> <!--/Previous Name-->
+
+                                    <!--New Name -->
+                                   <h:panelGroup layout="block" styleClass="form-group row">
+                                       <label for="newName" class="col-md-3 col-form-label float-left ">New Name: </label>
+                                       <p:inputText id="newName" value="#{inHouseInstitutionHandler.conversion.newName}" styleClass="form-control col-md-10 col-lg-8 col-lg-4" readonly="true"></p:inputText>
+                                   </h:panelGroup> <!--/New Name-->
+
+                                    <!--Previous Type -->
+                                   <h:panelGroup layout="block" styleClass="form-group row">
+                                       <label for="previousType" class="col-md-3 col-form-label float-left">Previous Type: </label>
+                                       <p:inputText id="previousType" value="#{inHouseInstitutionHandler.conversion.oldType}" styleClass="form-control col-md-10 col-lg-8 col-lg-4" readonly="true"></p:inputText>
+                                   </h:panelGroup> <!--/Previous Type-->
+
+                                    <!--New Type -->
+                                   <h:panelGroup layout="block" styleClass="form-group row">
+                                       <label for="newType" class="col-md-3 col-form-label float-left ">New Type: </label>
+                                       <p:inputText id="newType" value="#{inHouseInstitutionHandler.conversion.newType}" styleClass="form-control col-md-10 col-lg-8 col-lg-4" readonly="true"></p:inputText>
+                                   </h:panelGroup> <!--/New Type-->
+
+                                    <!--Conversion Date -->
+                                   <h:panelGroup layout="block" styleClass="form-group row">
+                                       <label for="conversionDate" class="col-md-3 col-form-label float-left ">Conversion Date: </label>
+                                        <p:calendar id="conversionDate" value="#{inHouseInstitutionHandler.conversion.conversionDateText}" inputStyleClass="form-control col-md-15" pattern="MM/dd/yyyy" mode="popup" />
+                                   </h:panelGroup> <!--/Effective Date-->
+
+                                    <!--Note-->
+                                   <h:panelGroup layout="block" styleClass="form-group row">
+                                       <label for="note" class="col-md-3 col-form-label float-left">Note: </label>
+                                       <p:inputTextarea  id="note" value="#{inHouseInstitutionHandler.conversion.note}" cols="50" rows="5" autoResize="false" maxlength="1600"/>
+                                   </h:panelGroup> <!--/Note-->
+
+                                  <h:panelGroup layout="block" class="text-center">
+                                      <p:commandButton id="saveButton" value="Save" class="btn btn-primary">
+                                        <p:confirm message="Please confirm the data is correct in the window prior to continuing. Is the data correct?"/> 
+                                      </p:commandButton>    
+                                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                             <p:commandButton value="Yes" type="submit" styleClass="ui-confirmdialog-yes" onclick="PF('typeChangeDialog').hide()" 
+                                                              action="#{inHouseInstitutionHandler.saveToConversion()}">
+                                             </p:commandButton>
+                                             <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no"/>
+                                        </p:confirmDialog>     
+                                      <p:commandButton id="cancelButton"  value="Cancel" class="btn btn-primary"  onclick="PF('typeChangeDialog').hide()"  update="message"/>    
+                                  </h:panelGroup>
+                                </h:panelGroup>
+                              </p:dialog>
+
+
+                             <p:dialog widgetVar="nameChangeDialog" visible="#{inHouseInstitutionHandler.showOtherPopup == 'Y'}" 
+                                       id="nameChangeDialog" header="Add a Note for Institution Name/Status Change" modal="true" width="900" 
+                                       height="600" appendTo="@(body)">                                               
+                                <hr />  
+                                <h:form>
+                                    <p:messages id="message2"  showDetail="false" autoUpdate="true" closable="true"/>
+                               <h:panelGroup layout="block" styleClass="col-md-8">
+                                   <!--Old Value -->
+                                   <h:panelGroup layout="block" styleClass="form-group row">
+                                       <label for="oldValue" class="col-md-3 col-form-label float-left">Old Value: </label>
+                                       <p:inputText id="oldValue" value="#{inHouseInstitutionHandler.change.oldValue}" styleClass="form-control col-md-10 col-lg-8 col-lg-4" readonly="true"></p:inputText>
+                                   </h:panelGroup> <!--/Old Value-->
+
+                                   <!--New Value -->
+                                   <h:panelGroup layout="block" styleClass="form-group row">
+                                       <label for="newValue" class="col-md-3 col-form-label float-left ">New Value: </label>
+                                       <p:inputText id="newValue" value="#{inHouseInstitutionHandler.change.newValue}" styleClass="form-control col-md-10 col-lg-8 col-lg-4" readonly="true"></p:inputText>
+                                   </h:panelGroup> <!--/New Value-->
+
+                                   <!--Effective Date -->
+                                   <h:panelGroup layout="block" styleClass="form-group row">
+                                       <label for="effectiveDate" class="col-md-3 col-form-label float-left">Effective Date: </label>
+                                        <p:calendar id="effectiveDate" value="#{inHouseInstitutionHandler.change.effectiveDateText}" inputStyleClass="form-control col-md-15" pattern="MM/dd/yyyy" mode="popup" />
+                                   </h:panelGroup> <!--/Effective Date-->
+
+                                   <!--Note-->
+                                   <h:panelGroup layout="block" styleClass="form-group row">
+                                       <label for="notes" class="col-md-3 col-form-label float-left">Note: </label>
+                                       <p:inputTextarea  id="notes" value="#{inHouseInstitutionHandler.change.note}" cols="50" rows="10" autoResize="false" />
+                                   </h:panelGroup> <!--/Note-->
+
+                                   <h:panelGroup layout="block" class="text-center">
+                                       <p:commandButton id="saveButton1" value="Save" class="btn btn-primary"  action="#{inHouseInstitutionHandler.saveToHistory()}" oncomplete="PF('nameChangeDialog').hide()" update="message2"/>
+                                       <p:commandButton id="cancelButton1" onclick="PF('nameChangeDialog').hide()"  value="Cancel" class="btn btn-primary" action="#{inHouseInstitutionHandler.hideNoteDialog()}" update="message2"/>    
+                                   </h:panelGroup>
+                               </h:panelGroup>
+                                    </h:form>
+                             </p:dialog>  
+
+                         <p:dialog widgetVar="dupNameDialog" visible="#{inHouseInstitutionHandler.showDupPopup == 'Y'}" id="dupNameDialog" modal="true" width="400" height="200">
+                             <h:panelGroup layout="block" styleClass="col-md-8">
+                                 <p:outputLabel value="The name you have entered already exists. Are you sure you want to modify the Institution Name?"></p:outputLabel>    
+                             </h:panelGroup>
+                             <h:panelGroup layout="block" styleClass="col-md-8">
+                                 <p:commandButton title="yesButton" 
+                                                  value="Yes" 
+                                                  oncomplete="PF('dupNameDialog').hide()" />
+                                 <p:commandButton title="NoButton" 
+                                                  value="No" 
+                                                  onclick="PF('nameChangeDialog').hide()"
+                                                  oncomplete="PF('dupNameDialog').hide()"/>
+                             </h:panelGroup>
+
+                             </p:dialog>  
+
+                           <p:dialog widgetVar="actTypeDialog" visible="#{inHouseInstitutionHandler.activeTypePopup == 'Y'}" id="actTypeDialog" modal="true" width="400" height="200">
+                             <h:panelGroup layout="block" styleClass="col-md-8">
+                                 <p:outputLabel value="This is not a common change. Are you sure you want to modify the Institution Type?"></p:outputLabel>    
+                             </h:panelGroup>
+                             <h:panelGroup layout="block" styleClass="col-md-8">
+                                 <p:commandButton title="yesButton" 
+                                                  value="Yes" 
+                                                  onclick="PF('typeChangeDialog').show()"
+                                                  oncomplete="PF('actTypeDialog').hide()" />
+                                 <p:commandButton title="NoButton" 
+                                                  value="No"
+                                                  oncomplete="PF('actTypeDialog').hide()"
+                                                  onclick="PF('typeChangeDialog').hide()"/>
+                             </h:panelGroup>
+
+                             </p:dialog>  
+
+                    </p:panelGrid>
+                          
+                    </h:panelGroup>
+                    <h:form id="backForm">
+                        <h:panelGroup layout="block" styleClass="text-center">
+                            <p:commandButton ajax="false" id="backButton" value="Back" class="btn btn-primary margin" action="#{inHouseInstitutionHandler.processBackCriteria}" />   
+                        </h:panelGroup>
+                  </h:form>
+                </section><!--/Body content-->
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

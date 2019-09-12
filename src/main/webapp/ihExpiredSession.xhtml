@@ -1,0 +1,36 @@
+<ui:composition template="/ihBase.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="subPageTitle">
+        Expired Session
+    </ui:define>
+
+    <ui:define name="mainContent">
+        <p:panel id="expiredSessionPanel"
+                 header="Session Expired"
+                 style="text-align: left;">
+
+            <p style="font-weight: bold; color: red;">
+                Your session has expired. This will require you to log back into the
+                system!
+            </p>
+
+            <p>
+                <strong>
+                    Please use the link below to log back into the system:
+                </strong>
+            </p>
+            <ul>
+                <li>
+                    <h:outputLink style="font-weight: bold;"
+                                  value="ihLogin.jsf">
+                        Return to Login Screen
+                    </h:outputLink>
+                </li>
+            </ul>
+        </p:panel>
+    </ui:define>
+</ui:composition>

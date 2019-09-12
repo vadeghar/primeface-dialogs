@@ -1,0 +1,70 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      >
+    <h:head>
+        <title>Login</title>
+        <link rel="stylesheet" type="text/css" href="resources/style/bootstrap.min.css"></link>
+        <link rel="stylesheet" type="text/css" href="resources/style/all.min.css"></link>
+        <link rel="stylesheet" type="text/css" href="resources/style/application.css"></link>
+
+        <script src="js/popper.min.js" type="text/javascript"></script>
+        <script src="js/bootstrap.min.js" type="text/javascript"></script>
+    </h:head>
+
+    <h:body styleClass="d-flex flex-column bg-body">
+        <header class="header sticky-top mb-4">
+            <nav class="navbar navbar-expand-lg">
+                <a href="#" class="navbar-brand pr-3 mr-3 border-right border-header">
+                    <img src="images/logo-header.jpg" alt="Logo"></img>
+                </a>
+                <h:panelGroup layout="block" styleClass="header-text border-left border-header">
+                    <h4 class="pl-3">
+                        Banking Information <br></br>
+                        Data System
+                    </h4>
+                </h:panelGroup>
+            </nav>
+        </header>
+
+        <section class="container-fluid flex-grow">
+            <h:form id="loginForm">
+                <h:panelGroup layout="block" styleClass="row justify-content-center mb-2">
+                    <h:panelGroup layout="block" styleClass="col-auto">
+                        <h3>Login</h3>
+                    </h:panelGroup>
+                </h:panelGroup>
+                <p:messages id="loginForm" autoUpdate="true" styleClass="row justify-content-center" />
+                <h:panelGroup layout="block" styleClass="row justify-content-center mb-5">
+                    <h:panelGroup layout="block" styleClass="col-md-4">
+                        <h:panelGroup layout="block" styleClass="card border border-login">
+
+
+                            <h:panelGroup layout="block" styleClass="card-body form-login">
+                                <h:panelGroup layout="block" styleClass="form-group mt-3">
+                                    <p:inputText id="username" value="#{inHouseLoginHandler.username}" styleClass="form-control" placeholder="Username" ></p:inputText>
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" styleClass="form-group">
+                                    <p:password id="password" value="#{inHouseLoginHandler.password}"  styleClass="form-control" placeholder="Password" feedback="false"></p:password>
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" styleClass="float-left">
+                                    <p:link href="#" value="Forgot Password?"></p:link>
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" styleClass="float-right">
+                                    <p:commandButton value="Login" styleClass="btn btn-primary" action="#{inHouseLoginHandler.processLogin}">
+
+                                    </p:commandButton>
+                                </h:panelGroup>
+                            </h:panelGroup>
+
+                        </h:panelGroup>
+                    </h:panelGroup>
+                </h:panelGroup>
+            </h:form>
+        </section>
+    </h:body>
+    <ui:insert name="footer">
+        <ui:include src="/templates/footer.xhtml"></ui:include>
+    </ui:insert>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <aside class="sidebar">
+        <!--Institution-->
+        <h:panelGroup layout="block" styleClass="card mt-3">
+            <h:panelGroup layout="block" styleClass="card-header co-color text-center text-white">
+                Institution
+            </h:panelGroup>
+            <h:panelGroup layout="block" styleClass="card-body leftPanel-align">
+                <nav class="nav">
+                    <a href="#" class="nav-link left-menu-link">Documents</a>
+                   <c:if test="${inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode != null and
+                     inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode == 'CB' or inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode == 'TCD' or 
+                     inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode == 'TCND' or inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode == 'MT'}"> 
+                    <a href="#" class="nav-link left-menu-link">Financials</a>
+                   </c:if>
+                    <c:if test="${inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode != null and
+                     inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode == 'CB' or inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode == 'IB' or 
+                     inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode == 'ISB' or inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode == 'NB'}">  
+                    <a href="#" class="nav-link left-menu-link">PDPA</a>
+                    </c:if>
+                </nav>
+            </h:panelGroup>
+        </h:panelGroup> <!--/Institution-->
+
+        <c:if test="${inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode != null and
+          inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode == 'CB' or inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode == 'IB' or 
+          inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode == 'FCD' or inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode == 'MT' or inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode == 'TCD' or inHouseInstitutionHandler.updatedInstitutionDetail.institutionTypeCode == 'TCND'}"> 
+        <!--Profile-->
+        <h:panelGroup layout="block" styleClass="card">
+            <h:panelGroup layout="block" styleClass="card-header co-color text-center text-white">
+                Profile
+            </h:panelGroup>
+            <h:panelGroup layout="block" styleClass="card-body leftPanel-align">
+                <nav class="nav">
+                    <a href="#" class="nav-link left-menu-link">Vendors</a>
+                    <a href="#" class="nav-link left-menu-link">Affiliates/Subsidaries</a>
+                    <a href="#" class="nav-link left-menu-link">Controlling Persons</a>
+                    <a href="#" class="nav-link left-menu-link">Comments</a>
+                    <a href="#" class="nav-link left-menu-link">Insurance</a>
+                </nav>
+            </h:panelGroup>
+        </h:panelGroup> <!--/Profile-->
+        </c:if>
+        <!--Supervisory Activities-->
+        <h:panelGroup layout="block" styleClass="card mb-3">
+            <h:panelGroup layout="block" styleClass="card-header co-color text-center text-white">
+                Supervisory Activities
+            </h:panelGroup>
+            <h:panelGroup layout="block" styleClass="card-body leftPanel-align">
+                <nav class="nav">
+                    <a href="#" class="nav-link left-menu-link">Applications Pending</a>
+                    <a href="#" class="nav-link left-menu-link">Current Conditions</a>
+                    <a href="#" class="nav-link left-menu-link">Supervisory Issues</a>
+                    <a href="#" class="nav-link left-menu-link">Activity Agenda</a>
+                    <a href="#" class="nav-link left-menu-link">Financial Monitoring</a>
+                </nav>
+            </h:panelGroup>
+        </h:panelGroup> <!--/Supervisory Activities-->
+    </aside><!--/Left side menu-->
+</html>

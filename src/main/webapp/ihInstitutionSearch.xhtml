@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    </h:head>
+    <h:body styleClass="d-flex flex-column">
+
+        <ui:composition template="/templates/body.xhtml">
+            <ui:define name="content">
+                <section class="center-panel flex-grow">
+                    <h:panelGroup layout="block" styleClass="container-fluid">
+
+
+                        <!--Record Search-->
+                        <h:panelGroup class="card card-body form-login text-center mt-4">
+                            <h4 class="mb-2">Record Search</h4>
+                            <h:panelGroup class="form-row justify-content-md-center">
+                                <h:panelGroup class="form-group no-margin-bottom  col-auto">
+                                    <label for="RecordType" class="col-form-label">Record Type</label>
+                                </h:panelGroup>
+
+                                <h:panelGroup class="form-group no-margin-bottom  col-md-3">
+                                    <h:selectOneMenu  id="selectRecord" class="custom-select" value="#">
+                                        <f:selectItem itemValue = "1" itemLabel="Institution"></f:selectItem>
+                                        <f:selectItem itemValue = "3" itemLabel="Facility"></f:selectItem>
+                                        <f:selectItem itemValue = "4" itemLabel="Association"></f:selectItem>
+                                        <f:selectItem itemValue = "2" itemLabel="Institution Staff"></f:selectItem>
+                                        <f:selectItem itemValue = "5" itemLabel="Document"></f:selectItem>
+                                        <f:selectItem itemValue = "6" itemLabel="Application"></f:selectItem>
+                                        <f:selectItem itemValue = "7" itemLabel="Correspondence"></f:selectItem>
+                                        <f:selectItem itemValue = "8" itemLabel="Complaint"></f:selectItem>
+                                    </h:selectOneMenu >
+                                </h:panelGroup>
+
+                                <h:panelGroup class="form-group no-margin-bottom ">
+                                    &nbsp; &nbsp;
+                                    <p:commandButton id="searchRecord"
+                                                     value="Search" class="btn btn-primary"
+                                                     actionListener="#"
+                                                     />
+                                </h:panelGroup>
+                            </h:panelGroup>
+
+                        </h:panelGroup><!--/Record Search-->
+
+                        <!--Institution Search-->
+                        <h:panelGroup class="card card-body form-login mt-4" id="instSearchSection">
+                            <h4 class="mb-2 text-center">Institution Search</h4>
+                            <h:form id="recordForm" class="text-center">
+                                <h:panelGroup class="form-row form-group">
+                                    <label for="InstitutionName" class="col-form-label col-md-16 col-lg-1 text-lg-right">Institution Name</label>
+                                    <h:panelGroup class="col-md-12 col-lg-2">
+                                        <p:inputText id="InstitutionName" styleClass="form-control" value="#{inHouseInstitutionHandler.institutionSearch.institutionName}" ></p:inputText>
+                                    </h:panelGroup>
+
+                                    <label for="OldName" class="col-form-label col-md-16 col-lg-1 text-lg-right">Old Name</label>
+                                    <h:panelGroup class="col-md-12 col-lg-2 col-lg-1">
+                                        <p:inputText id="oldName" styleClass="form-control" value="#{inHouseInstitutionHandler.institutionSearch.oldInstitutionName}"></p:inputText>
+                                    </h:panelGroup>
+
+                                    <label for="City" class="col-form-label col-md-16 col-lg-1 text-lg-right">City</label>
+                                    <h:panelGroup class="col-md-12 col-lg-2">
+                                        <p:inputText id="city"  styleClass="form-control"  value="#{inHouseInstitutionHandler.institutionSearch.city}"></p:inputText>
+                                    </h:panelGroup>
+
+                                    <label for="State" class="col-form-label col-md-16 col-lg-1 text-lg-right">State</label>
+                                    <h:panelGroup class="col-md-12 col-lg-2">
+                                        <h:selectOneMenu id="state" styleClass="custom-select"
+                                                         value="#{inHouseInstitutionHandler.institutionSearch.stateCode}"
+                                                         required="true"
+                                                         requiredMessage="Required">
+                                            <f:selectItem itemValue=" " itemLabel="All" />
+                                            <f:selectItems  value="#{systemUtilityHandler.stateItems}" />
+                                        </h:selectOneMenu>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+
+                                <h:panelGroup class="form-row form-group">
+
+                                    <label for="InstitutionType" class="col-form-label col-md-16 col-lg-1 text-lg-right">Institution Type</label>
+                                    <h:panelGroup class="col-md-12 col-lg-2">
+                                        <h:selectOneMenu id="institutionTypeCode" styleClass="custom-select"
+                                                         value="#{inHouseInstitutionHandler.institutionSearch.institutionTypeCode}"
+                                                         required="true"
+                                                         requiredMessage="Required">
+                                            <f:selectItem id="institutionTypeCodeNull" itemValue=" " itemLabel="All" />
+                                            <f:selectItems id="institutionTypeCodeAll"  value="#{systemUtilityHandler.institutionTypeCodeItems}" />
+                                        </h:selectOneMenu>
+                                    </h:panelGroup>
+
+                                    <label for="Status" class="col-form-label col-md-16 col-lg-1 text-lg-right">Status</label>
+                                    <h:panelGroup class="col-md-12 col-lg-2">
+                                        <h:selectOneMenu id="selectStatus" class="custom-select" value="#{inHouseInstitutionHandler.institutionSearch.statusCode}">
+                                             <f:selectItem id="selectStatusNull" itemValue=" " itemLabel="All" />
+                                            <f:selectItems id="selectStatusAll" value="#{systemUtilityHandler.statusItems}" />
+                                        </h:selectOneMenu>
+                                    </h:panelGroup>
+                                    <label for="CaseloadManager" class="col-form-label col-md-16 col-lg-1 text-lg-right">Caseload Manager</label>
+                                    <h:panelGroup class="col-md-12 col-lg-2">
+                                        <h:selectOneMenu id="caseloadManager" styleClass="custom-select"
+                                                         value="#{inHouseInstitutionHandler.institutionSearch.staffName}"
+                                                         required="true"
+                                                         requiredMessage="Required">
+                                            <f:selectItem id="caseloadManagerNull" itemValue=" " itemLabel="All" />
+                                            <f:selectItems id="caseloadManagerAll"  value="#{systemUtilityHandler.caseLoadManagerItems}" />
+                                        </h:selectOneMenu>
+                                    </h:panelGroup>
+
+                                    <label for="RSSD" class="col-form-label col-md-16 col-lg-1 text-lg-right">RSSD</label>
+                                    <h:panelGroup class="col-md-12 col-lg-2">
+                                        <p:inputText id="rssd" styleClass="form-control" value="#{inHouseInstitutionHandler.institutionSearch.rssdNumber}"></p:inputText>
+                                    </h:panelGroup>
+
+                                </h:panelGroup>
+
+                                <h:panelGroup class="form-row form-group">
+                                  
+                                    <label for="Charter" class="col-form-label col-md-16 col-lg-1 text-lg-right">Charter</label>
+                                    <h:panelGroup class="col-md-12 col-lg-2">
+                                        <p:inputText id="charter" styleClass="form-control" value="#{inHouseInstitutionHandler.institutionSearch.charterLicenseNumber}"  ></p:inputText>
+                                    </h:panelGroup>
+
+                                    <label for="FDIC" class="col-form-label col-md-16 col-lg-1 text-lg-right">FDIC</label>
+                                    <h:panelGroup class="col-md-12 col-lg-2">
+                                        <p:inputText id="fdic" styleClass="form-control" value="#{inHouseInstitutionHandler.institutionSearch.fdicNumber}"></p:inputText>
+                                    </h:panelGroup>
+                                    
+                                    <label for="DBA" class="col-form-label col-md-16 col-lg-1 text-lg-right">DBA</label>
+                                    <h:panelGroup class="col-md-12 col-lg-2">
+                                        <p:inputText id="dba" styleClass="form-control" value="#{inHouseInstitutionHandler.institutionSearch.dbaName}"></p:inputText>
+                                    </h:panelGroup>
+
+                                    <label class="col-form-label col-md-16 col-lg-1 text-lg-right" for="dobRegulated">DOB Regulated</label>
+                                     <h:panelGroup class="col-md-12 col-lg-2">
+                                         <h:selectOneMenu  id="DOBRegulated" styleClass="custom-select" value="#{inHouseInstitutionHandler.institutionSearch.dobRegulatedInstitution}"  >
+                                                    <f:selectItem itemValue=" " itemLabel="All"></f:selectItem>
+                                                    <f:selectItem itemValue = "Y" itemLabel="Yes"></f:selectItem>
+                                                    <f:selectItem itemValue = "N" itemLabel="No"></f:selectItem>
+                                                </h:selectOneMenu> 
+                                    </h:panelGroup>
+                                </h:panelGroup>
+
+                                <h:panelGroup class="text-center">
+                                    <p:commandButton ajax="false" id="clearButton" value="Clear" class="btn btn-primary margin" action="#{inHouseInstitutionHandler.processClearCriteria()}" />  &nbsp;
+                                    <p:commandButton id="addNewButton" value="Add New" class="btn btn-primary margin"  onclick="PF('addInst').show()"/>  &nbsp;
+                                    <p:commandButton ajax="false"
+                                     id="searchButton" value="Search" class="btn btn-primary margin" action="#{inHouseInstitutionHandler.processSearchCriteria()}" >
+                                       
+                                    </p:commandButton>
+                                </h:panelGroup>
+                            </h:form>
+                           
+                                
+                            <p:dialog widgetVar="addInst" id="addInstDialog" header=" Add New Institution" modal="true" width="600" height="400">
+                                 <h:form id="addForm">
+                                     <p:messages id="messages1"  showDetail="false" autoUpdate="true" closable="true"/>
+                                    
+                                    <hr />        
+                                    <h:panelGroup layout="block" styleClass="col-md-14">
+                                        <!--Name -->
+                                       <h:panelGroup layout="block" styleClass="form-group row">
+                                           <label for="InstitutionName" class="col-form-label float-left required pad">Institution Name: </label>
+                                           <p:inputText id="InstitutionName" value="#{inHouseInstitutionHandler.newInstitutionDetail.institutionName}" styleClass="form-control custom-align"></p:inputText>
+                                       </h:panelGroup> <!--/Name-->
+                                       <!--Type-->
+                                       <h:panelGroup layout="block" styleClass="form-group row">
+                                        <label for="InstitutionType" class="col-form-label float-left required pad">Institution Type: </label>
+                                           <h:selectOneMenu id="institutionTypeCode" styleClass="custom-select custom-align"
+                                                                                     value="#{inHouseInstitutionHandler.newInstitutionDetail.institutionTypeCode}"
+                                                                                     required="true"
+                                                                                     requiredMessage="Required">
+                                           <f:selectItem id="institutionTypeCodeNull" itemValue=" " itemLabel="--Select a Type--" />
+                                           <f:selectItems id="institutionTypeCodeAll"  value="#{systemUtilityHandler.institutionTypeCodeItems}" />
+                                           </h:selectOneMenu>
+                                      </h:panelGroup>
+                                      <h:panelGroup layout="block" class="text-center leftPanel-align">
+                                          <p:commandButton id="saveButton" ajax="true" value="Save" class="btn btn-primary" 
+                                                           actionListener="#{inHouseInstitutionHandler.processAddInstitution()}" 
+                                                           update="addForm:messages1"/>
+                                          <p:commandButton id="cancelButton"  value="Cancel" class="btn btn-primary">
+                                              <p:confirm header="Cancel Institution" message="Are you sure to exit?"/>
+                                        </p:commandButton>
+
+                                       <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                           <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" onclick="PF('addInst').hide()" 
+                                                            action="#{inHouseInstitutionHandler.hideDialog()}">
+                                               
+                                           </p:commandButton>
+                                       <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no"/>
+                                       </p:confirmDialog>      
+                                      </h:panelGroup>
+                                    </h:panelGroup>
+                                </h:form>
+                                <p:ajax event="close" update="addInstDialog" resetValues="true" />
+                            </p:dialog>
+                            
+                        </h:panelGroup>
+                        <!--/Institution Search-->
+                         <p:panel id="recordsSelectionPanel">
+                        <!--Search Results-->
+                        <h:panelGroup class="card card-body no-border mt-4 mb-4">
+                            <h:panelGroup>
+                                <h:form>
+                                <p:dataTable id="institutions" class="table table-bordered table-hover"
+                                             var="record"
+                                             value="#{inHouseInstitutionHandler.institutions}"
+                                             rows="15"
+                                             paginator="true"
+                                             currentPageReportTemplate="Record {startRecord}-{endRecord} of {totalRecords}"
+                                             paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                     {PreviousPageLink} {NextPageLink}
+                     {LastPageLink}" sortMode="multiple"            
+                                 selectionMode="single"
+                                 selection="#{inHouseInstitutionHandler.selectedInstitution}"
+                                 rowKey="#{record.institutionID}"  
+                                 >
+                                    <p:ajax event="rowSelect" listener="#{inHouseInstitutionHandler.navigateToDetailsPage}" />
+                                    <p:column headerText="Institution Name" 
+                                              sortBy="#{record.institutionName}"
+                                              width="20%">
+                                        <h:outputText value="#{record.institutionName}" />
+                                    </p:column>
+                                    <p:column headerText="City"
+                                              sortBy="#{record.city}"
+                                              width="10%">
+                                        <h:outputText value="#{record.city}" />
+                                    </p:column>
+                                    <p:column headerText="Charter"
+                                              sortBy="#{record.charterLicenseNumber}"
+                                              width="5%">
+                                        <h:outputText value="#{record.charterLicenseNumber}" />
+                                    </p:column>
+                                    <p:column headerText="Institution Type"
+                                              sortBy="#{record.institutionTypeCode}"
+                                              width="10%">
+                                        <h:outputText value="#{record.institutionTypeCode}" />
+                                    </p:column>
+                                    <p:column headerText="Status"
+                                              sortBy="#{record.statusCode}"
+                                              width="5%">
+                                        <h:outputText value="#{record.statusCode}" />
+                                    </p:column>
+                                </p:dataTable>
+                                </h:form>    
+                                <P></P>
+                            </h:panelGroup>
+
+                            <h:panelGroup class="text-center">
+                                <h:form id="printForm">
+                                    <p:commandButton id="exportButton" class="btn btn-primary" value="Export" action="#{inHouseInstitutionHandler.processOpenInstitutionExport()}"></p:commandButton>
+                                </h:form>
+                            </h:panelGroup>
+                        </h:panelGroup><!--/Search Results-->
+                         </p:panel>
+                    </h:panelGroup>
+                </section>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

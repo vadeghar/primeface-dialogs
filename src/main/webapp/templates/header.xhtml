@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <!--header-->
+    <header class="header-admin sticky-top co-color">
+
+        <nav class="navbar navbar-expand-lg align">
+            <h:panelGroup layout="block" styleClass="container-fluid">
+                <h:panelGroup layout="block" styleClass="navbar-brand">
+                    <img src="images/logo.jpg" alt="Logo" align="left" style="padding-right:10px;"></img>
+                    <h4 class="top-padding"> Banking Information Data System</h4>
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="float-right align-middle">
+                    <h:form>
+                        <span class="display-6 text-white mr-3 top-padding">
+                            <span class="mr-2"></span>
+                            #{databaseSessionManager.username}
+                        </span>
+                        <span class=" display-6 border-white top-padding">
+                            <h:commandLink action="#{inHouseLoginHandler.processLogout}" styleClass="text-white mr-3" title="Logout">Logout</h:commandLink>
+                        </span>
+                        <h:panelGroup styleClass=" display-6 border-left border-white mt-2 top-padding">
+                            <span role="button" class="ml-3 text-white" id="dropdownMenuOffset" data-toggle="dropdown" aria-expanded="false">
+                                <span class="mr-2">Admin</span><i class="fas fa-align-justify"></i>
+                            </span>
+                        </h:panelGroup>
+                    </h:form>
+                </h:panelGroup>
+            </h:panelGroup>
+        </nav>
+    </header><!--header-->
+</html>

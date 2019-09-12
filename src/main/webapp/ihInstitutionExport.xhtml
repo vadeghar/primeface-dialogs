@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:h="http://xmlns.jcp.org/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Style-Type" content="text/css" />
+        <meta http-equiv="Content-Language" content="en"/>
+        <meta name="robots" content="index, follow"/>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+        
+        <link rel="stylesheet" type="text/css" href="resources/style/bootstrap.min.css"></link>
+        <link rel="stylesheet" type="text/css" href="resources/style/application.css"></link>
+
+        <script src="js/bootstrap.min.js" type="text/javascript"></script>
+        
+        <title>
+            Export Institutions
+        </title>
+
+        <style type="text/css" >
+            .ui-widget {font-size: 90%; }
+        </style>
+
+        <h:outputStylesheet name="layout-internal.css"
+                            library="style"
+                            />
+        <h:outputStylesheet name="common.css"
+                            library="style"
+                            />
+    </h:head>
+    <h:body>
+        <p:growl id="msg"
+                 showDetail="true"
+                 showSummary="false"
+                 sticky="true"
+                 globalOnly="true"
+                 />
+
+        <hr />
+
+        <h:form id="mainForm">
+                  <p:dataTable id="institutions" 
+                                             var="record"
+                                             value="#{inHouseInstitutionHandler.institutions}"
+                                             paginator="true"
+                                              paginatorPosition="top"
+                                             currentPageReportTemplate="Record {startRecord}-{endRecord} of {totalRecords}"
+                                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}"   
+                                             scrollable="true" scrollRows="20" scrollWidth="98%"  liveScroll="true"  scrollHeight="350"
+                                             >
+
+                <p:column headerText="Institution Name" width="120"
+                          sortBy="#{record.institutionName}">
+                    <h:outputText value="#{record.institutionName}" />
+                </p:column>
+
+                <p:column headerText="City" width="55"
+                          sortBy="#{record.city}">
+                    <h:outputText value="#{record.city}" />
+                </p:column>
+
+                <p:column headerText="Charter" width="120"
+                          sortBy="#{record.charterLicenseNumber}"
+                          resizable="true"
+                          style="overflow: hidden; text-overflow: ellipsis;">
+                    <h:outputText value="#{record.charterLicenseNumber}" />
+                </p:column>
+
+                <p:column headerText="Institution Type" width="120"
+                          sortBy="#{record.institutionTypeCode}">
+                    <h:outputText value="#{record.institutionTypeCode}" />
+                </p:column>
+
+                <p:column headerText="Status" width="55"
+                          sortBy="#{record.statusCode}">
+                    <h:outputText value="#{record.statusCode}"/>
+                </p:column>
+
+            </p:dataTable>
+            <P></P>
+
+            Export Data:   
+            <p:spacer width="10" />
+            <h:commandLink>
+                <p:graphicImage name="if_excel.png" library="images" alt="xls"/>
+                <p:dataExporter type="xls" target="institutions" fileName="#{inHouseInstitutionHandler.getUniqueExportname()}" />
+            </h:commandLink>
+            <hr />
+
+            <p style="text-align: center;">
+                <p:commandButton id="cancelButton"  value="Cancel" class="btn btn-primary" action="#{inHouseInstitutionHandler.hideDialog()}" />
+            </p>
+            </h:form>
+    </h:body>
+</html>

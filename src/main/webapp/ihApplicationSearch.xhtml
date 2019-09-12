@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:p="http://primefaces.org/ui"
+          xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    </h:head>
+    <h:body styleClass="d-flex flex-column">
+
+        <ui:composition template="/templates/body.xhtml">
+            <ui:define name="content">
+                <section class="center-panel flex-grow">
+                    <h:panelGroup layout="block" styleClass="container-fluid">
+                        <!--Record Search-->
+                        <h:panelGroup class="card card-body form-login text-center mt-4">
+                            <h4 class="mb-2">Record Search</h4>
+                            <h:panelGroup class="form-row justify-content-md-center">
+                                <h:panelGroup class="form-group no-margin-bottom  col-auto">
+                                    <label for="RecordType" class="col-form-label">Record Type</label>
+                                </h:panelGroup>
+
+                                <h:panelGroup class="form-group no-margin-bottom  col-md-3">
+                                    <h:selectOneMenu  id="selectRecord" class="custom-select" value="#">
+                                        <f:selectItem itemValue = "1" itemLabel="Institution"></f:selectItem>
+                                        <f:selectItem itemValue = "3" itemLabel="Facility"></f:selectItem>
+                                        <f:selectItem itemValue = "4" itemLabel="Association"></f:selectItem>
+                                        <f:selectItem itemValue = "2" itemLabel="Institution Staff"></f:selectItem>
+                                        <f:selectItem itemValue = "5" itemLabel="Document"></f:selectItem>
+                                        <f:selectItem itemValue = "6" itemLabel="Application"></f:selectItem>
+                                        <f:selectItem itemValue = "7" itemLabel="Correspondence"></f:selectItem>
+                                        <f:selectItem itemValue = "8" itemLabel="Complaint"></f:selectItem>
+                                    </h:selectOneMenu >
+                                </h:panelGroup>
+
+                                <h:panelGroup class="form-group no-margin-bottom ">
+                                    &nbsp; &nbsp;
+                                    <p:commandButton id="searchRecord"
+                                                     value="Search" class="btn btn-primary"
+                                                     actionListener="#"
+                                                     />
+                                </h:panelGroup>
+                            </h:panelGroup>
+
+                        </h:panelGroup><!--/Record Search-->
+
+
+
+                        <!--Application Search-->
+                        <h:panelGroup class="card card-body form-login mt-4" id="instSearchSection">
+                            <h4 class="mb-2 text-center">Application Search</h4>
+                            <h:form id="recordForm" class="text-center">
+                                <h:panelGroup class="form-row form-group">
+                                    <label for="InstitutionName" class="col-form-label col-md-16 col-lg-1 text-lg-right">Institution Name</label>
+                                    <h:panelGroup class="col-md-12 col-lg-2">
+                                        <p:inputText id="InstitutionName" styleClass="form-control" value="#{applicationHandler.applicationSearch.institutionName}" ></p:inputText>
+                                    </h:panelGroup>
+                                    
+                                    
+                                    <label for="Status" class="col-form-label col-md-16 col-lg-1 text-lg-right">Status</label>
+                                    <h:panelGroup class="col-md-12 col-lg-2">
+                                        <h:selectOneMenu id="selectStatus" class="custom-select" value="#{applicationHandler.applicationSearch.status}">
+                                             <f:selectItem  itemValue="All" itemLabel="All" />
+                                              <f:selectItem  itemValue="Open" itemLabel="Open" />
+                                               <f:selectItem  itemValue="Closed" itemLabel="Closed" />
+                                        </h:selectOneMenu>
+                                    </h:panelGroup>
+                                    
+                                </h:panelGroup>
+
+                                <h:panelGroup class="form-row form-group">
+
+                                    <label for="TransactionType" class="col-form-label col-md-16 col-lg-1 text-lg-right">Transaction Type</label>
+                                    <h:panelGroup class="col-md-12 col-lg-2">
+                                        <h:selectOneMenu id="transactionTypeCode" styleClass="custom-select"
+                                                         value="#{transactionHandler.applicationSearch.transactionTypeCode}"
+                                                         required="true"
+                                                         requiredMessage="Required">
+                                            <f:selectItem id="transactionTypeCodeNull" itemValue=" " itemLabel="All" />
+                                            <f:selectItems id="transactionTypeCodeAll"  value="#{transactionTyprCodeHandler.transactionTypeCodes}" />
+                                        </h:selectOneMenu>
+                                    </h:panelGroup>
+
+                                    <label for="ReceivedDateBetween" class="col-form-label col-md-16 col-lg-1 text-lg-right">Received Date Between</label>
+                                    <h:panelGroup class="col-md-12 col-lg-2">
+                                        <p:calendar  value="#{applicationHandler.applicationSearch.receivedStartDate}" mode="popup"/><h:outputText>and</h:outputText><p:calendar  value="#{applicationHandler.applicationSearch.receivedEndDate}" mode="popup"/>
+                                    </h:panelGroup>
+
+                                </h:panelGroup>
+
+                               <h:panelGroup class="form-row form-group">
+
+                                    <label for="ApplicationType" class="col-form-label col-md-16 col-lg-1 text-lg-right">Application Type</label>
+                                    <h:panelGroup class="col-md-12 col-lg-2">
+                                        <h:selectOneMenu id="institutionTypeCode" styleClass="custom-select"
+                                                         value="#{applicationHandler.applicationSearch.applicationTypeCode}"
+                                                         required="true"
+                                                         requiredMessage="Required">
+                                            <f:selectItem id="institutionTypeCodeNull" itemValue=" " itemLabel="All" />
+                                            <f:selectItems id="institutionTypeCodeAll"  value="#{applicationTypeCodeHandler.applicationTypeCodes}" />
+                                        </h:selectOneMenu>
+                                    </h:panelGroup>
+
+                                    <label for="DueDateBetween" class="col-form-label col-md-16 col-lg-1 text-lg-right">Due Date Between</label>
+                                    <h:panelGroup class="col-md-12 col-lg-2">
+                                        <p:calendar  value="#{applicationHandler.applicationSearch.dueStartDate}" mode="popup"/><h:outputText>and</h:outputText><p:calendar  value="#{applicationHandler.applicationSearch.dueEndDate}" mode="popup"/>
+                                    </h:panelGroup>
+
+                                </h:panelGroup>
+
+                                <h:panelGroup class="text-center">
+                                    <p:commandButton ajax="false" id="clearButton" value="Clear" class="btn btn-primary margin" action="#{applicationHandler.clearSearchCriteria()}" />  &nbsp;
+                                    <p:commandButton ajax="false"
+                                     id="searchButton" value="Search" class="btn btn-primary margin" action="#{applicationHandler.submitSearchCriteria()}" >
+                                    </p:commandButton>
+                                </h:panelGroup>
+                            </h:form>
+                    </h:panelGroup>
+                    </h:panelGroup>
+                    
+                </section>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
